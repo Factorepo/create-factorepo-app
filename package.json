@@ -5,6 +5,7 @@
     "node": ">=22.20.0",
     "pnpm": ">=10.15.1"
   },
+  "packageManager": "pnpm@10.15.1",
   "scripts": {
     "build": "turbo run build",
     "clean": "git clean -xdf node_modules",
@@ -26,18 +27,12 @@
     "ios": "expo run:ios"
   },
   "devDependencies": {
-    "@acme/prettier-config": "*",
+    "@acme/prettier-config": "workspace:*",
     "@turbo/gen": "^2.5.8",
     "dotenv-cli": "^10.0.0",
     "prettier": "catalog:",
     "turbo": "^2.5.8",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config",
-  "packageManager": "bun@1.3.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "tooling/*"
-  ]
+  "prettier": "@acme/prettier-config"
 }
