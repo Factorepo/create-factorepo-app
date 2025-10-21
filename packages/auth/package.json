@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@acme/db": "workspace:*",
+    "@acme/db": "*",
     "@better-auth/expo": "catalog:",
     "@t3-oss/env-nextjs": "^0.13.8",
     "better-auth": "catalog:",
@@ -27,9 +27,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@acme/eslint-config": "*",
+    "@acme/prettier-config": "*",
+    "@acme/tsconfig": "*",
     "@better-auth/cli": "catalog:",
     "@types/react": "catalog:react19",
     "eslint": "catalog:",
