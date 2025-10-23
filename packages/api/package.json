@@ -1,5 +1,5 @@
 {
-  "name": "@acme/api",
+  "name": "@atlas/api",
   "private": true,
   "type": "module",
   "exports": {
@@ -18,20 +18,20 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@acme/auth": "workspace:*",
-    "@acme/db": "workspace:*",
-    "@acme/validators": "workspace:*",
+    "@atlas/auth": "workspace:*",
+    "@atlas/db": "workspace:*",
+    "@atlas/validators": "workspace:*",
     "@trpc/server": "catalog:",
     "superjson": "2.2.2",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@atlas/eslint-config": "workspace:*",
+    "@atlas/prettier-config": "workspace:*",
+    "@atlas/tsconfig": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@atlas/prettier-config"
 }

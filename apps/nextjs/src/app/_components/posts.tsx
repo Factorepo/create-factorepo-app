@@ -7,19 +7,19 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-import type { RouterOutputs } from "@acme/api";
-import { CreatePostSchema } from "@acme/db/schema";
-import { cn } from "@acme/ui";
-import { Button } from "@acme/ui/button";
+import type { RouterOutputs } from "@atlas/api";
+import { CreatePostSchema } from "@atlas/db/schema";
+import { cn } from "@atlas/ui";
+import { Button } from "@atlas/ui/button";
 import {
   Field,
   FieldContent,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@acme/ui/field";
-import { Input } from "@acme/ui/input";
-import { toast } from "@acme/ui/toast";
+} from "@atlas/ui/field";
+import { Input } from "@atlas/ui/input";
+import { toast } from "@atlas/ui/toast";
 
 import { useTRPC } from "~/trpc/react";
 
@@ -164,11 +164,39 @@ export function PostCard(props: {
     }),
   );
 
+  const createLike = useMutation(
+    trpc.like.create.mutationOptions({
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.post.pathFilter());
+        toast.success("Liked");
+      },
+      onError: (err) => {
+        toast.error(
+          err.data?.code === "UNAUTHORIZED"
+            ? "You must be logged in to like a post"
+            : "Failed to like post",
+        );
+      },
+    }),
+  );
+
   return (
     <div className="bg-muted flex flex-row rounded-lg p-4">
       <div className="grow">
         <h2 className="text-primary text-2xl font-bold">{props.post.title}</h2>
         <p className="mt-2 text-sm">{props.post.content}</p>
+        <div className="mt-3 flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-primary hover:bg-primary/10 flex items-center gap-1 px-3 py-1"
+            onClick={() => createLike.mutate({ postId: props.post.id })}
+            disabled={createLike.isPending}
+          >
+            <span className="text-lg">❤️</span>
+            <span className="font-semibold">{props.post.likeCount}</span>
+          </Button>
+        </div>
       </div>
       <div>
         <Button

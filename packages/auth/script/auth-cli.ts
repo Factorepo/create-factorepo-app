@@ -4,7 +4,11 @@
  * This file is used exclusively by the Better Auth CLI to generate database schemas.
  * DO NOT USE THIS FILE DIRECTLY IN YOUR APPLICATION.
  *
- * This configuration is consumed by the CLI command:
+ * WARNING: The auth-schema.ts file has been manually customized to use UUID types.
+ * DO NOT run the generate command as it will overwrite the UUID types with text types.
+ * The Better Auth CLI does not support generating UUID schemas - the schema must be maintained manually.
+ *
+ * Original CLI command (DO NOT RUN):
  * `pnpx @better-auth/cli generate --config script/auth-cli.ts --output ../db/src/auth-schema.ts`
  *
  * For actual authentication usage, import from "../src/index.ts" instead.

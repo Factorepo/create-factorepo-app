@@ -3,6 +3,8 @@ import { pgTable } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
+import { user } from "./auth-schema";
+
 export const Post = pgTable("post", (t) => ({
   id: t.uuid().notNull().primaryKey().defaultRandom(),
   title: t.varchar({ length: 256 }).notNull(),
@@ -20,6 +22,24 @@ export const CreatePostSchema = createInsertSchema(Post, {
   id: true,
   createdAt: true,
   updatedAt: true,
+});
+
+export const Like = pgTable("like", (t) => ({
+  id: t.uuid().notNull().primaryKey().defaultRandom(),
+  postId: t
+    .uuid()
+    .notNull()
+    .references(() => Post.id),
+  userId: t
+    .uuid()
+    .notNull()
+    .references(() => user.id),
+}));
+
+export const CreateLikeSchema = createInsertSchema(Like, {
+  postId: z.uuid().nonempty(),
+}).omit({
+  id: true,
 });
 
 export * from "./auth-schema";

@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { Button } from "@acme/ui/button";
+import { Button } from "@atlas/ui/button";
 
 import { auth, getSession } from "~/auth/server";
 
@@ -18,7 +18,7 @@ export async function AuthShowcase() {
             const res = await auth.api.signInSocial({
               body: {
                 provider: "discord",
-                callbackURL: "/",
+                // callbackURL: "/",
               },
             });
             if (!res.url) {

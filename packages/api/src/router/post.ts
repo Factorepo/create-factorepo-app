@@ -1,17 +1,27 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod/v4";
 
-import { desc, eq } from "@acme/db";
-import { CreatePostSchema, Post } from "@acme/db/schema";
+import { eq, sql } from "@atlas/db";
+import { CreatePostSchema, Like, Post } from "@atlas/db/schema";
 
 import { protectedProcedure, publicProcedure } from "../trpc";
 
 export const postRouter = {
-  all: publicProcedure.query(({ ctx }) => {
-    return ctx.db.query.Post.findMany({
-      orderBy: desc(Post.id),
-      limit: 10,
-    });
+  all: publicProcedure.query(async ({ ctx }) => {
+    const posts = await ctx.db
+      .select({
+        id: Post.id,
+        title: Post.title,
+        content: Post.content,
+        createdAt: Post.createdAt,
+        updatedAt: Post.updatedAt,
+        likeCount: sql<number>`cast(count(${Like.id}) as integer)`,
+      })
+      .from(Post)
+      .leftJoin(Like, eq(Post.id, Like.postId))
+      .groupBy(Post.id);
+
+    return posts;
   }),
 
   byId: publicProcedure
