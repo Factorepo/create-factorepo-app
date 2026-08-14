@@ -5,8 +5,8 @@ import { cn } from "@acme/ui";
 import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
 import { Toaster } from "@acme/ui/toast";
 
+import { QueryProvider } from "~/api/react";
 import { env } from "~/env";
-import { TRPCReactProvider } from "~/trpc/react";
 
 import "~/app/globals.css";
 
@@ -58,7 +58,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <TRPCReactProvider>{props.children}</TRPCReactProvider>
+          <QueryProvider>{props.children}</QueryProvider>
           <div className="absolute right-4 bottom-4">
             <ThemeToggle />
           </div>

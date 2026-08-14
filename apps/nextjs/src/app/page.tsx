@@ -1,6 +1,9 @@
 import { Suspense } from "react";
 
-import { HydrateClient, prefetch, trpc } from "~/trpc/server";
+import { postService } from "@acme/api";
+
+import { postKeys } from "~/api/client";
+import { createContext, HydrateClient, prefetch } from "~/api/server";
 import { AuthShowcase } from "./_components/auth-showcase";
 import {
   CreatePostForm,
@@ -9,7 +12,11 @@ import {
 } from "./_components/posts";
 
 export default function HomePage() {
-  prefetch(trpc.post.all.queryOptions());
+  // Served straight from the service — no HTTP round trip on the server.
+  prefetch({
+    queryKey: postKeys.all,
+    queryFn: async () => postService.getAllPosts(await createContext()),
+  });
 
   return (
     <HydrateClient>

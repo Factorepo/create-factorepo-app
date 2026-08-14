@@ -41,15 +41,15 @@ apps
   │   ├─ React Native 0.81 using React 19
   │   ├─ Navigation using Expo Router
   │   ├─ Tailwind CSS v4 using NativeWind v5
-  │   └─ Typesafe API calls using tRPC
+  │   └─ Typesafe API calls using TanStack Query
   └─ next.js
       ├─ Next.js 15
       ├─ React 19
       ├─ Tailwind CSS v4
-      └─ E2E Typesafe API Server & Client
+      └─ API route handlers & typesafe client
 packages
   ├─ api
-  │   └─ tRPC v11 router definition
+  │   └─ Services and REST route handlers served by the Next.js app
   ├─ auth
   │   └─ Authentication using better-auth.
   ├─ db
@@ -170,6 +170,33 @@ To add a new package, simply run `pnpm turbo gen init` in the monorepo root. Thi
 
 The generator sets up the `package.json`, `tsconfig.json` and a `index.ts`, as well as configures all the necessary configurations for tooling around your package such as formatting, linting and typechecking. When the package is created, you're ready to go build out the package.
 
+### 5c. The API
+
+[`@acme/api`](./packages/api) holds the backend. It is split in two layers:
+
+- `services/*` — the data access itself. These take an `ApiContext` and can be
+  called directly from a React Server Component, so the server never talks to
+  itself over HTTP.
+- `routes/*` — thin adapters that expose those services over HTTP. `apiRoute`
+  turns one into a web-standard handler, which keeps each route file in
+  `apps/nextjs/src/app/api` down to a line per method.
+
+| Method   | Route                  |
+| -------- | ---------------------- |
+| `GET`    | `/api/posts`           |
+| `POST`   | `/api/posts`           |
+| `GET`    | `/api/posts/:id`       |
+| `DELETE` | `/api/posts/:id`       |
+| `POST`   | `/api/posts/:id/likes` |
+| `DELETE` | `/api/likes/:id`       |
+
+Failed requests answer with `{ error: { code, message, fieldErrors? } }`, where
+`code` is one of `BAD_REQUEST`, `UNAUTHORIZED`, `FORBIDDEN`, `NOT_FOUND` or
+`INTERNAL_SERVER_ERROR`. Clients narrow on that code rather than on the HTTP
+status. Both apps wrap these endpoints in a small typed `fetch` client
+([web](./apps/nextjs/src/api/client.ts), [native](./apps/expo/src/utils/api.ts))
+that imports its response types from `@acme/api`.
+
 ## FAQ
 
 ### Does the starter include Solito?
@@ -191,7 +218,7 @@ If you need to share runtime code between the client and server, such as input v
 #### Prerequisites
 
 > **Note**
-> Please note that the Next.js application with tRPC must be deployed in order for the Expo app to communicate with the server in a production environment.
+> Please note that the Next.js application must be deployed in order for the Expo app to communicate with the server in a production environment.
 
 #### Deploy to Vercel
 
@@ -213,7 +240,7 @@ Deploying your Expo application works slightly differently compared to Next.js o
 
 1. Make sure to modify the `getBaseUrl` function to point to your backend's production URL:
 
-   <https://github.com/t3-oss/create-t3-turbo/blob/656965aff7db271e5e080242c4a3ce4dad5d25f8/apps/expo/src/utils/api.tsx#L20-L37>
+   [`apps/expo/src/utils/base-url.ts`](./apps/expo/src/utils/base-url.ts)
 
 2. Let's start by setting up [EAS Build](https://docs.expo.dev/build/introduction), which is short for Expo Application Services. The build service helps you create builds of your app, without requiring a full native development setup. The commands below are a summary of [Creating your first build](https://docs.expo.dev/build/setup).
 

@@ -5,14 +5,11 @@ import { Link, Stack } from "expo-router";
 import { LegendList } from "@legendapp/list";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import type { RouterOutputs } from "~/utils/api";
-import { trpc } from "~/utils/api";
+import type { PostSummary } from "~/utils/api";
+import { api, ApiClientError, postKeys } from "~/utils/api";
 import { authClient } from "~/utils/auth";
 
-function PostCard(props: {
-  post: RouterOutputs["post"]["all"][number];
-  onDelete: () => void;
-}) {
+function PostCard(props: { post: PostSummary; onDelete: () => void }) {
   return (
     <View className="bg-muted flex flex-row rounded-lg p-4">
       <View className="grow">
@@ -44,15 +41,17 @@ function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const { mutate, error } = useMutation(
-    trpc.post.create.mutationOptions({
-      async onSuccess() {
-        setTitle("");
-        setContent("");
-        await queryClient.invalidateQueries(trpc.post.all.queryFilter());
-      },
-    }),
-  );
+  const { mutate, error } = useMutation({
+    mutationFn: api.posts.create,
+    async onSuccess() {
+      setTitle("");
+      setContent("");
+      await queryClient.invalidateQueries({ queryKey: postKeys.all });
+    },
+  });
+
+  const apiError = error instanceof ApiClientError ? error : null;
+  const fieldErrors = apiError?.fieldErrors;
 
   return (
     <View className="mt-4 flex gap-2">
@@ -62,10 +61,8 @@ function CreatePost() {
         onChangeText={setTitle}
         placeholder="Title"
       />
-      {error?.data?.zodError?.fieldErrors.title && (
-        <Text className="text-destructive mb-2">
-          {error.data.zodError.fieldErrors.title}
-        </Text>
+      {fieldErrors?.title && (
+        <Text className="text-destructive mb-2">{fieldErrors.title}</Text>
       )}
       <TextInput
         className="border-input bg-background text-foreground items-center rounded-md border px-3 text-lg leading-tight"
@@ -73,10 +70,8 @@ function CreatePost() {
         onChangeText={setContent}
         placeholder="Content"
       />
-      {error?.data?.zodError?.fieldErrors.content && (
-        <Text className="text-destructive mb-2">
-          {error.data.zodError.fieldErrors.content}
-        </Text>
+      {fieldErrors?.content && (
+        <Text className="text-destructive mb-2">{fieldErrors.content}</Text>
       )}
       <Pressable
         className="bg-primary flex items-center rounded-sm p-2"
@@ -89,7 +84,7 @@ function CreatePost() {
       >
         <Text className="text-foreground">Create</Text>
       </Pressable>
-      {error?.data?.code === "UNAUTHORIZED" && (
+      {apiError?.code === "UNAUTHORIZED" && (
         <Text className="text-destructive mt-2">
           You need to be logged in to create a post
         </Text>
@@ -126,14 +121,15 @@ function MobileAuth() {
 export default function Index() {
   const queryClient = useQueryClient();
 
-  const postQuery = useQuery(trpc.post.all.queryOptions());
+  const postQuery = useQuery({
+    queryKey: postKeys.all,
+    queryFn: api.posts.list,
+  });
 
-  const deletePostMutation = useMutation(
-    trpc.post.delete.mutationOptions({
-      onSettled: () =>
-        queryClient.invalidateQueries(trpc.post.all.queryFilter()),
-    }),
-  );
+  const deletePostMutation = useMutation({
+    mutationFn: api.posts.delete,
+    onSettled: () => queryClient.invalidateQueries({ queryKey: postKeys.all }),
+  });
 
   return (
     <SafeAreaView className="bg-background">

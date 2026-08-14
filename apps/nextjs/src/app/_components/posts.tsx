@@ -7,7 +7,7 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-import type { RouterOutputs } from "@acme/api";
+import type { PostSummary } from "@acme/api";
 import { CreatePostSchema } from "@acme/db/schema";
 import { cn } from "@acme/ui";
 import { Button } from "@acme/ui/button";
@@ -21,27 +21,27 @@ import {
 import { Input } from "@acme/ui/input";
 import { toast } from "@acme/ui/toast";
 
-import { useTRPC } from "~/trpc/react";
+import { api, ApiClientError, postKeys } from "~/api/client";
+
+const isUnauthorized = (error: Error) =>
+  error instanceof ApiClientError && error.code === "UNAUTHORIZED";
 
 export function CreatePostForm() {
-  const trpc = useTRPC();
-
   const queryClient = useQueryClient();
-  const createPost = useMutation(
-    trpc.post.create.mutationOptions({
-      onSuccess: async () => {
-        form.reset();
-        await queryClient.invalidateQueries(trpc.post.pathFilter());
-      },
-      onError: (err) => {
-        toast.error(
-          err.data?.code === "UNAUTHORIZED"
-            ? "You must be logged in to post"
-            : "Failed to create post",
-        );
-      },
-    }),
-  );
+  const createPost = useMutation({
+    mutationFn: api.posts.create,
+    onSuccess: async () => {
+      form.reset();
+      await queryClient.invalidateQueries({ queryKey: postKeys.all });
+    },
+    onError: (err) => {
+      toast.error(
+        isUnauthorized(err)
+          ? "You must be logged in to post"
+          : "Failed to create post",
+      );
+    },
+  });
 
   const form = useForm({
     defaultValues: {
@@ -118,8 +118,10 @@ export function CreatePostForm() {
 }
 
 export function PostList() {
-  const trpc = useTRPC();
-  const { data: posts } = useSuspenseQuery(trpc.post.all.queryOptions());
+  const { data: posts } = useSuspenseQuery({
+    queryKey: postKeys.all,
+    queryFn: api.posts.list,
+  });
 
   if (posts.length === 0) {
     return (
@@ -144,41 +146,36 @@ export function PostList() {
   );
 }
 
-export function PostCard(props: {
-  post: RouterOutputs["post"]["all"][number];
-}) {
-  const trpc = useTRPC();
+export function PostCard(props: { post: PostSummary }) {
   const queryClient = useQueryClient();
-  const deletePost = useMutation(
-    trpc.post.delete.mutationOptions({
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(trpc.post.pathFilter());
-      },
-      onError: (err) => {
-        toast.error(
-          err.data?.code === "UNAUTHORIZED"
-            ? "You must be logged in to delete a post"
-            : "Failed to delete post",
-        );
-      },
-    }),
-  );
+  const deletePost = useMutation({
+    mutationFn: api.posts.delete,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: postKeys.all });
+    },
+    onError: (err) => {
+      toast.error(
+        isUnauthorized(err)
+          ? "You must be logged in to delete a post"
+          : "Failed to delete post",
+      );
+    },
+  });
 
-  const createLike = useMutation(
-    trpc.like.create.mutationOptions({
-      onSuccess: async () => {
-        await queryClient.invalidateQueries(trpc.post.pathFilter());
-        toast.success("Liked");
-      },
-      onError: (err) => {
-        toast.error(
-          err.data?.code === "UNAUTHORIZED"
-            ? "You must be logged in to like a post"
-            : "Failed to like post",
-        );
-      },
-    }),
-  );
+  const createLike = useMutation({
+    mutationFn: api.likes.create,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: postKeys.all });
+      toast.success("Liked");
+    },
+    onError: (err) => {
+      toast.error(
+        isUnauthorized(err)
+          ? "You must be logged in to like a post"
+          : "Failed to like post",
+      );
+    },
+  });
 
   return (
     <div className="bg-muted flex flex-row rounded-lg p-4">
@@ -190,7 +187,7 @@ export function PostCard(props: {
             variant="ghost"
             size="sm"
             className="text-primary hover:bg-primary/10 flex items-center gap-1 px-3 py-1"
-            onClick={() => createLike.mutate({ postId: props.post.id })}
+            onClick={() => createLike.mutate(props.post.id)}
             disabled={createLike.isPending}
           >
             <span className="text-lg">❤️</span>
