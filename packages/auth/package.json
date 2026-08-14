@@ -1,5 +1,5 @@
 {
-  "name": "@atlas/auth",
+  "name": "@acme/auth",
   "private": true,
   "type": "module",
   "exports": {
@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@atlas/db": "workspace:*",
+    "@acme/db": "workspace:*",
     "@better-auth/expo": "catalog:",
     "@t3-oss/env-nextjs": "^0.13.8",
     "better-auth": "catalog:",
@@ -27,14 +27,14 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@atlas/eslint-config": "workspace:*",
-    "@atlas/prettier-config": "workspace:*",
-    "@atlas/tsconfig": "workspace:*",
+    "@acme/eslint-config": "workspace:*",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
     "@better-auth/cli": "catalog:",
     "@types/react": "catalog:react19",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@atlas/prettier-config"
+  "prettier": "@acme/prettier-config"
 }

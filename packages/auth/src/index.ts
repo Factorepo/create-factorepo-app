@@ -4,7 +4,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { oAuthProxy } from "better-auth/plugins";
 
-import { db } from "@atlas/db/client";
+import { db } from "@acme/db/client";
 
 export function initAuth(options: {
   baseUrl: string;

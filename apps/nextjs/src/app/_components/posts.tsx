@@ -7,19 +7,19 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 
-import type { RouterOutputs } from "@atlas/api";
-import { CreatePostSchema } from "@atlas/db/schema";
-import { cn } from "@atlas/ui";
-import { Button } from "@atlas/ui/button";
+import type { RouterOutputs } from "@acme/api";
+import { CreatePostSchema } from "@acme/db/schema";
+import { cn } from "@acme/ui";
+import { Button } from "@acme/ui/button";
 import {
   Field,
   FieldContent,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@atlas/ui/field";
-import { Input } from "@atlas/ui/input";
-import { toast } from "@atlas/ui/toast";
+} from "@acme/ui/field";
+import { Input } from "@acme/ui/input";
+import { toast } from "@acme/ui/toast";
 
 import { useTRPC } from "~/trpc/react";
 

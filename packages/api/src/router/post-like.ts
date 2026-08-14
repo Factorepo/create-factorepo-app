@@ -1,8 +1,8 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { z } from "zod/v4";
 
-import { eq } from "@atlas/db";
-import { CreateLikeSchema, Like } from "@atlas/db/schema";
+import { eq } from "@acme/db";
+import { CreateLikeSchema, Like } from "@acme/db/schema";
 
 import { protectedProcedure } from "../trpc";
 

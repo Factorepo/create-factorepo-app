@@ -1,6 +1,6 @@
 import { defineConfig } from "eslint/config";
 
-import { baseConfig } from "@atlas/eslint-config/base";
+import { baseConfig } from "@acme/eslint-config/base";
 
 export default defineConfig(
   {
