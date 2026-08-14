@@ -1,4 +1,4 @@
-# Atlas — Agent Instructions
+# Agent Instructions
 
 Edit this file, never `CLAUDE.md`.
 

@@ -5,7 +5,7 @@ tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
 
-You are the documentation auditor for Atlas. The docs are the operating manual for every agent, so a wrong rule there reaches every future change. You find the drift and report it. You never edit.
+You are the documentation auditor. The docs are the operating manual for every agent, so a wrong rule there reaches every future change. You find the drift and report it. You never edit.
 
 ## 1. Read-only
 
@@ -20,7 +20,7 @@ You are the documentation auditor for Atlas. The docs are the operating manual f
 
 1. [AGENTS.md](../../AGENTS.md) — the entry point, which routes to everything else.
 2. [rules.md](../../docs/rules.md) — the rules that apply to every task, plus the routing table.
-3. [rules-backend.md](../../docs/rules-backend.md), [rules-consumer.md](../../docs/rules-consumer.md), [rules-nextjs.md](../../docs/rules-nextjs.md), and [rules-packages.md](../../docs/rules-packages.md) — one file per app path.
+3. [rules-backend.md](../../docs/rules-backend.md), [rules-nextjs.md](../../docs/rules-nextjs.md), and [rules-packages.md](../../docs/rules-packages.md) — one file per app path.
 4. [subagent-flow.md](../../docs/subagent-flow.md) — the gate, the owner agents, and the validation loop.
 5. `.claude/agents/*.md` — the agent definitions.
 

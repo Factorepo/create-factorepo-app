@@ -115,7 +115,7 @@
 7. Resolve the session through the auth API.
 8. Never read the cookie by hand.
 9. Keep a production cookie cross-subdomain, secure, and cross-site.
-10. Set the production cookie domain to `.atlashukuk.ai`, and `sameSite` to `"none"`.
+10. Set the production cookie domain to `.acme.com`, and `sameSite` to `"none"`.
 11. Take the session types and the auth types from the auth module.
 12. Never hand-write those types.
 13. Allow a browser-extension origin in CORS, because the companion extension authenticates against this backend.
@@ -166,7 +166,7 @@
 5. Never write one test file per router or per feature.
 6. Cover the success path.
 7. Cover the failure paths: bad input, missing authentication, wrong owner, and absent row.
-8. Run the suite with `pnpm -F @atlas/backend test`.
+8. Run the suite with `pnpm -F @acme/nextjs test`.
 9. Run the tests against the real services on `localhost`, because there is no mocking layer for them.
 10. Import `setup` from `./setup`, and call it at the top of a suite.
 11. Expect `setup` to seed a test user, a role, and a credit, and to register the cleanup hooks.

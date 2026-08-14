@@ -148,7 +148,7 @@
 1. Make every connection to something outside the process in a repository.
 2. Never make such a connection anywhere else.
 3. Reach PostgreSQL through postgres.js, and never import `pg` or node-postgres.
-4. Import `db` from `@atlas/db/client`, the tables from `@atlas/db/schema`, and the query helpers from `@atlas/db`.
+4. Import `db` from `@acme/db/client`, the tables from `@acme/db/schema`, and the query helpers from `@acme/db`.
 5. Name a repository file `<domain>Repository.ts`.
 6. Keep a repository to building a query and returning the result.
 7. Put no domain logic, no API logic, and no business branching in a repository.

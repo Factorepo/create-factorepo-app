@@ -152,30 +152,32 @@
 
 ## 14. Data access
 
-1. Call the standalone API server.
-2. Never call a framework route handler.
-3. Point the base URL of the auth client at the same API server, which is `NEXT_PUBLIC_BACKEND_URL`.
-4. A base URL on the frontend origin produces a call that returns 404.
-5. Call the auth client directly from a client component, because there is no proxy endpoint.
-6. Use the `api` client from `~/api/client` in a client component.
-7. Include the credentials with `credentials: "include"`, so that the session cookie goes with the request.
-8. Read with `useQuery` or with `useSuspenseQuery`, and write with `useMutation`.
-9. Take every query key from the key factory that `~/api/client` exports.
-10. Never write a query key inline.
-11. Call a service from `@acme/api` in a server component.
-12. Build the request context with `createContext` from `~/api/server`, which forwards the incoming headers.
-13. A server component reads through the service and makes no HTTP request.
-14. Prefetch and hydrate on the server with `prefetch` and `HydrateClient` when a client component needs the same data.
-15. Give the prefetch the same query key that the client component subscribes to.
-16. The client component then reads the cache and makes no second request.
-17. Take the response types from `@acme/api`.
-18. Take the input schemas from `@acme/db/schema`.
-19. Never hand-type an API response, because a manual type drifts and the compiler stops helping you.
-20. Narrow a failure on `ApiClientError` and on its `code` field.
-21. Never narrow a failure on the HTTP status.
-22. Seed the query cache from the mutation result when the mutation returns the new state.
-23. Never refetch in that case.
-24. Read the environment through `~/env`.
+1. Call the route handlers of this app under `/api`.
+2. Never call a separate API server, because this app serves its own API.
+3. Keep a route file to one export for each HTTP method.
+4. Build each export with `apiRoute` from `@acme/api`, and pass it the `auth` instance.
+5. Export `corsPreflight` as `OPTIONS`, because the Expo app calls the same routes.
+6. Read the session in a server component with `getSession` from `~/auth/server`.
+7. Run a sign-in or a sign-out in a server action that calls the auth API.
+8. Use the `api` client from `~/api/client` in a client component.
+9. The session cookie goes with the request, because the API shares the origin of the app.
+10. Read with `useQuery` or with `useSuspenseQuery`, and write with `useMutation`.
+11. Take every query key from the key factory that `~/api/client` exports.
+12. Never write a query key inline.
+13. Call a service from `@acme/api` in a server component.
+14. Build the request context with `createContext` from `~/api/server`, which forwards the incoming headers.
+15. A server component reads through the service and makes no HTTP request.
+16. Prefetch and hydrate on the server with `prefetch` and `HydrateClient` when a client component needs the same data.
+17. Give the prefetch the same query key that the client component subscribes to.
+18. The client component then reads the cache and makes no second request.
+19. Take the response types from `@acme/api`.
+20. Take the input schemas from `@acme/db/schema`.
+21. Never hand-type an API response, because a manual type drifts and the compiler stops helping you.
+22. Narrow a failure on `ApiClientError` and on its `code` field.
+23. Never narrow a failure on the HTTP status.
+24. Seed the query cache from the mutation result when the mutation returns the new state.
+25. Never refetch in that case.
+26. Read the environment through `~/env`.
 
 ## 15. Session cookies
 

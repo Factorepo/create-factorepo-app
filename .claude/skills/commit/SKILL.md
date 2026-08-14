@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Create a commit, a branch, or a pull request in the Atlas repo, following the project's git rules. Use whenever the user asks to commit, branch, push, or open a PR.
+description: Create a commit, a branch, or a pull request in the repo, following the project's git rules. Use whenever the user asks to commit, branch, push, or open a PR.
 model: haiku
 ---
 
@@ -18,4 +18,4 @@ model: haiku
 1. Push after every commit.
 2. Set the upstream on the first push of a new branch.
 3. Give the user the pull request URL after the push succeeds.
-4. Build the URL as `https://github.com/AtlasHukuk/atlas/compare/main...<branch>?expand=1`.
+4. Build the URL as `https://github.com/org/acme/compare/main...<branch>?expand=1`.

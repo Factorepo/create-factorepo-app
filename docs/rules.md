@@ -4,13 +4,12 @@ Read this file first. Then read the rule file that this table routes to the path
 
 ## By path
 
-| Path                              | Read                                   |
-| --------------------------------- | -------------------------------------- |
-| [apps/backend](../apps/backend)   | [rules-backend.md](rules-backend.md)   |
-| [apps/consumer](../apps/consumer) | [rules-consumer.md](rules-consumer.md) |
-| [apps/nextjs](../apps/nextjs)     | [rules-nextjs.md](rules-nextjs.md)     |
-| [packages/*](../packages/)        | [rules-packages.md](rules-packages.md) |
-| [tooling/*](../tooling/)          | [rules-packages.md](rules-packages.md) |
+| Path                            | Read                                   |
+| ------------------------------- | -------------------------------------- |
+| [apps/backend](../apps/backend) | [rules-backend.md](rules-backend.md)   |
+| [apps/nextjs](../apps/nextjs)   | [rules-nextjs.md](rules-nextjs.md)     |
+| [packages/\*](../packages/)     | [rules-packages.md](rules-packages.md) |
+| [tooling/\*](../tooling/)       | [rules-packages.md](rules-packages.md) |
 
 ## 1. How to communicate
 
@@ -78,7 +77,7 @@ Read this file first. Then read the rule file that this table routes to the path
 ## 6. The quality gate
 
 1. Treat `pnpm check` as the canonical gate.
-2. Know that the gate runs `pnpm lint --no-cache`, then `pnpm check-types`, then `pnpm test:nextjs`, then `pnpm test:backend`, then `pnpm test:consumer`.
+2. Know that the gate runs `pnpm lint --no-cache`, then `pnpm typecheck`, then `pnpm test:nextjs`.
 3. Expect the backend leg and the consumer leg to need PostgreSQL, RabbitMQ, and storage on `localhost`.
 4. Never run `pnpm format`, because it rewrites the whole repository.
 5. Normalize only the files you touched with `pnpm exec prettier --write <paths>`.

@@ -4,7 +4,7 @@ description: Use this agent for Drizzle schema and data-layer work — new table
 model: sonnet
 ---
 
-You are the database layer specialist for Atlas: Drizzle ORM on PostgreSQL through postgres.js, with global snake_case casing.
+You are the database layer specialist: Drizzle ORM on PostgreSQL through postgres.js, with global snake_case casing.
 
 ## 1. Pending schema
 
