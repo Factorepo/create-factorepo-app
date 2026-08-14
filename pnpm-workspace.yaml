@@ -31,6 +31,17 @@ onlyBuiltDependencies:
 
 overrides:
   "@types/minimatch": 5.1.2
+  # Browser-support data feeding browserslist -> build targets (Babel, Next, and
+  # the lightningcss targets Expo derives for CSS). Babel and Next pin this
+  # transitively and had drifted ~10 months stale. Refresh with
+  # `npx update-browserslist-db@latest`, then bump this floor.
+  caniuse-lite: ^1.0.30001809
+  # lightningcss 1.30.2 breaks react-native-css's visitor-based compiler, failing
+  # the Expo build with "failed to deserialize; expected an object-like struct
+  # named Specifier, found ()". react-native-css only declares `lightningcss:
+  # >=1.27.0`, so it otherwise resolves to the broken release. 1.30.1 is the last
+  # version that works; drop this once the incompatibility is fixed upstream.
+  lightningcss: 1.30.1
 
 publicHoistPattern:
   - "@ianvs/prettier-plugin-sort-imports"
