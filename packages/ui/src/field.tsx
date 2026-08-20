@@ -92,6 +92,7 @@ export function Field({
 }: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
   return (
     <div
+      // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- Field takes div props; FieldSet renders the real fieldset.
       role="group"
       data-slot="field"
       data-orientation={orientation}

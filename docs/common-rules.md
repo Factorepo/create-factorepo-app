@@ -25,8 +25,10 @@
 
 1. Keep the lint rules in `tooling/lint`.
 2. Silence one line with a disable comment, and write the reason on the comment.
-3. Exempt a whole folder in `tooling/lint/exceptions.json`, and write why.
-4. Never widen a line-scoped disable comment into a folder-scoped exemption.
+3. Silence a whole file with a file-level disable comment at the top, and write
+   the reason.
+4. Never add a folder-scoped exemption. Put every exception in the file it
+   applies to.
 
 ## 5. The quality gate
 

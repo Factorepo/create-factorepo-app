@@ -63,9 +63,8 @@ export function CreatePostForm() {
       }}
     >
       <FieldGroup>
-        <form.Field
-          name="title"
-          children={(field) => {
+        <form.Field name="title">
+          {(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -86,10 +85,9 @@ export function CreatePostForm() {
               </Field>
             );
           }}
-        />
-        <form.Field
-          name="content"
-          children={(field) => {
+        </form.Field>
+        <form.Field name="content">
+          {(field) => {
             const isInvalid =
               field.state.meta.isTouched && !field.state.meta.isValid;
             return (
@@ -110,7 +108,7 @@ export function CreatePostForm() {
               </Field>
             );
           }}
-        />
+        </form.Field>
       </FieldGroup>
       <Button type="submit">Create</Button>
     </form>

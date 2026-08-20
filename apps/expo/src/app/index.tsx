@@ -9,6 +9,10 @@ import type { PostSummary } from "~/utils/api";
 import { api, ApiClientError, postKeys } from "~/utils/api";
 import { authClient } from "~/utils/auth";
 
+function PostSeparator() {
+  return <View className="h-2" />;
+}
+
 function PostCard(props: { post: PostSummary; onDelete: () => void }) {
   return (
     <View className="bg-muted flex flex-row rounded-lg p-4">
@@ -152,7 +156,7 @@ export default function Index() {
           data={postQuery.data ?? []}
           estimatedItemSize={20}
           keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={() => <View className="h-2" />}
+          ItemSeparatorComponent={PostSeparator}
           renderItem={(p) => (
             <PostCard
               post={p.item}

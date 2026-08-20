@@ -4,7 +4,7 @@ import type { PlopTypes } from "@turbo/gen";
 interface PackageJson {
   name: string;
   scripts: Record<string, string>;
-  dependencies: Record<string, string>;
+  dependencies?: Record<string, string>;
   devDependencies: Record<string, string>;
 }
 
@@ -33,11 +33,6 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           }
         }
         return "Config sanitized";
-      },
-      {
-        type: "add",
-        path: "packages/{{ name }}/eslint.config.ts",
-        templateFile: "templates/eslint.config.ts.hbs",
       },
       {
         type: "add",
