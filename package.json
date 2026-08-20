@@ -23,8 +23,6 @@
     "test:nextjs": "pnpm -F @acme/nextjs test",
     "typecheck": "turbo run typecheck",
     "ui-add": "turbo run ui-add",
-    "dev:android": "pnpm -F @acme/expo dev:android",
-    "dev:ios": "pnpm -F @acme/expo dev:ios",
     "android": "pnpm -F @acme/expo android",
     "ios": "pnpm -F @acme/expo ios",
     "dev:expo": "turbo -F @acme/expo dev"
