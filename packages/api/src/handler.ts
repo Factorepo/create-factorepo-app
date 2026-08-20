@@ -1,13 +1,10 @@
 import type { Auth } from "@acme/auth";
+import { AppError, httpLog, isAppError } from "@acme/service";
 
 import type { ApiContext } from "./context";
 import { createApiContext } from "./context";
-import { ApiError } from "./errors";
+import { errorStatus, toErrorBody } from "./errors";
 
-/**
- * Basic CORS headers so the Expo app can talk to the API.
- * You should extend this to match your needs.
- */
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "OPTIONS, GET, POST, DELETE",
@@ -20,11 +17,9 @@ const json = (body: unknown, status: number): Response =>
     headers: { ...CORS_HEADERS, "content-type": "application/json" },
   });
 
-/** Handler for the CORS preflight request. Re-export as `OPTIONS` from a route. */
 export const corsPreflight = (): Response =>
   new Response(null, { status: 204, headers: CORS_HEADERS });
 
-/** The arguments every route handler in this package receives. */
 export interface RouteContext<TParams = Record<string, never>> {
   ctx: ApiContext;
   req: Request;
@@ -35,15 +30,6 @@ export type RouteHandler<TParams, TResult> = (
   args: RouteContext<TParams>,
 ) => Promise<TResult>;
 
-/**
- * Adapts one of this package's route handlers into a web-standard request
- * handler, which is exactly the signature a Next.js App Router route file
- * expects:
- *
- * ```ts
- * export const GET = apiRoute(auth, postRoutes.byId);
- * ```
- */
 export function apiRoute<TParams, TResult>(
   auth: Auth,
   handler: RouteHandler<TParams, TResult>,
@@ -58,29 +44,26 @@ export function apiRoute<TParams, TResult>(
 
       return json(await handler({ ctx, req, params }), 200);
     } catch (error) {
-      if (error instanceof ApiError) {
-        return json(error.toBody(), error.status);
-      }
+      const failure = isAppError(error)
+        ? error
+        : AppError.internal("http.request.unhandled", error);
 
-      console.error(`>>> API error on '${req.method} ${req.url}'`, error);
-      const unexpected = new ApiError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Something went wrong",
+      httpLog.requestFailed(failure, {
+        route: req.url,
+        method: req.method,
+        status: errorStatus(failure),
       });
-      return json(unexpected.toBody(), unexpected.status);
+
+      return json(toErrorBody(failure), errorStatus(failure));
     }
   };
 }
 
-/** Reads a JSON request body, rejecting anything that isn't parseable. */
 export async function readJsonBody(req: Request): Promise<unknown> {
   try {
     const body: unknown = await req.json();
     return body;
   } catch {
-    throw new ApiError({
-      code: "BAD_REQUEST",
-      message: "Expected a JSON request body",
-    });
+    throw AppError.badRequest("Expected a JSON request body.");
   }
 }

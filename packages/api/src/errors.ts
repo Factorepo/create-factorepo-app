@@ -1,6 +1,9 @@
 import type { ZodError, ZodType } from "zod/v4";
 import { z } from "zod/v4";
 
+import type { AppErrorCode } from "@acme/service";
+import { AppError, appErrorStatus } from "@acme/service";
+
 export type ApiErrorCode =
   | "BAD_REQUEST"
   | "UNAUTHORIZED"
@@ -10,10 +13,6 @@ export type ApiErrorCode =
 
 export type FieldErrors = Record<string, string[] | undefined>;
 
-/**
- * The shape every non-2xx response from this API uses. Clients narrow on
- * `error.code` rather than on the HTTP status so the two stay in sync.
- */
 export interface ApiErrorBody {
   error: {
     code: ApiErrorCode;
@@ -22,59 +21,53 @@ export interface ApiErrorBody {
   };
 }
 
-const STATUS_BY_CODE: Record<ApiErrorCode, number> = {
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500,
+// The application error carries nine codes and the wire carries five, so the
+// ones a client cannot act on differently collapse. The HTTP status stays the
+// accurate one, read from the application error itself.
+const WIRE_CODE: Record<AppErrorCode, ApiErrorCode> = {
+  BAD_REQUEST: "BAD_REQUEST",
+  UNAUTHORIZED: "UNAUTHORIZED",
+  FORBIDDEN: "FORBIDDEN",
+  NOT_FOUND: "NOT_FOUND",
+  CONFLICT: "BAD_REQUEST",
+  PAYLOAD_TOO_LARGE: "BAD_REQUEST",
+  TOO_MANY_REQUESTS: "BAD_REQUEST",
+  UPSTREAM_FAILURE: "INTERNAL_SERVER_ERROR",
+  INTERNAL: "INTERNAL_SERVER_ERROR",
 };
 
-export class ApiError extends Error {
-  readonly code: ApiErrorCode;
-  readonly status: number;
-  readonly fieldErrors?: FieldErrors;
-
-  constructor(opts: {
-    code: ApiErrorCode;
-    message: string;
-    fieldErrors?: FieldErrors;
-  }) {
-    super(opts.message);
-    this.name = "ApiError";
-    this.code = opts.code;
-    this.status = STATUS_BY_CODE[opts.code];
-    this.fieldErrors = opts.fieldErrors;
-  }
-
-  toBody(): ApiErrorBody {
-    return {
-      error: {
-        code: this.code,
-        message: this.message,
-        ...(this.fieldErrors && { fieldErrors: this.fieldErrors }),
-      },
-    };
-  }
+function readFieldErrors(error: AppError): FieldErrors | undefined {
+  const fieldErrors = error.meta?.fieldErrors;
+  return fieldErrors as FieldErrors | undefined;
 }
 
-/**
- * Validates `input` against `schema`, turning a failure into a `BAD_REQUEST`
- * carrying per-field messages so forms can render them inline.
- */
+export function toErrorBody(error: AppError): ApiErrorBody {
+  const fieldErrors = readFieldErrors(error);
+
+  return {
+    error: {
+      code: WIRE_CODE[error.code],
+      message: error.userMessage,
+      ...(fieldErrors && { fieldErrors }),
+    },
+  };
+}
+
+export const errorStatus = (error: AppError): number =>
+  appErrorStatus(error.code);
+
 export function parseInput<TSchema extends ZodType>(
   schema: TSchema,
   input: unknown,
 ): z.output<TSchema> {
   const result = schema.safeParse(input);
+
   if (!result.success) {
-    throw new ApiError({
-      code: "BAD_REQUEST",
-      message: "Invalid input",
-      fieldErrors: z.flattenError(
-        result.error as ZodError<Record<string, unknown>>,
-      ).fieldErrors,
-    });
+    const fieldErrors = z.flattenError(
+      result.error as ZodError<Record<string, unknown>>,
+    ).fieldErrors;
+
+    throw AppError.badRequest("Invalid input.", { fieldErrors });
   }
   return result.data;
 }

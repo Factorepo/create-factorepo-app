@@ -1,2 +1,10 @@
-export * from "drizzle-orm/sql";
-export { alias } from "drizzle-orm/pg-core";
+export { authAdapter } from "./authAdapter";
+
+export { likeRepository, postRepository } from "./repository";
+export type {
+  LikeRow,
+  NewLike,
+  NewPost,
+  PostRow,
+  PostSummaryRow,
+} from "./repository";

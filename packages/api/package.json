@@ -19,6 +19,7 @@
   "dependencies": {
     "@acme/auth": "workspace:*",
     "@acme/db": "workspace:*",
+    "@acme/service": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

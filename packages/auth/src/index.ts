@@ -1,10 +1,10 @@
 import type { BetterAuthOptions } from "better-auth";
+import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { oAuthProxy } from "better-auth/plugins";
 
-import { db } from "@acme/db/client";
+import { authAdapter } from "@acme/db";
 
 export function initAuth(options: {
   baseUrl: string;
@@ -15,10 +15,7 @@ export function initAuth(options: {
   discordClientSecret: string;
 }) {
   const config = {
-    database: drizzleAdapter(db, {
-      provider: "pg",
-      usePlural: false,
-    }),
+    database: authAdapter,
     baseURL: options.baseUrl,
     secret: options.secret,
     advanced: {
@@ -30,6 +27,7 @@ export function initAuth(options: {
       oAuthProxy({
         productionURL: options.productionUrl,
       }),
+      expo(),
       nextCookies(),
     ],
     socialProviders: {
@@ -39,11 +37,7 @@ export function initAuth(options: {
         redirectURI: `${options.baseUrl}/api/auth/callback/discord`,
       },
     },
-    onAPIError: {
-      onError(error, ctx) {
-        console.error("BETTER AUTH API ERROR", error, ctx);
-      },
-    },
+    trustedOrigins: ["expo://"],
   } satisfies BetterAuthOptions;
 
   return betterAuth(config);

@@ -7,13 +7,13 @@
       "types": "./dist/index.d.ts",
       "default": "./src/index.ts"
     },
-    "./client": {
-      "types": "./dist/client.d.ts",
-      "default": "./src/client.ts"
-    },
     "./schema": {
       "types": "./dist/schema.d.ts",
       "default": "./src/schema.ts"
+    },
+    "./repository": {
+      "types": "./dist/repository/index.d.ts",
+      "default": "./src/repository/index.ts"
     }
   },
   "license": "MIT",
@@ -28,6 +28,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "better-auth": "catalog:",
     "drizzle-orm": "^0.44.6",
     "drizzle-seed": "^0.3.1",
     "drizzle-zod": "^0.8.3",

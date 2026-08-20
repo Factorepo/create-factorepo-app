@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 
-import { postService } from "@acme/api";
+import { getAllPosts } from "@acme/api";
 
 import { postKeys } from "~/api/client";
-import { createContext, HydrateClient, prefetch } from "~/api/server";
+import { HydrateClient, prefetch } from "~/api/server";
 import { AuthShowcase } from "./_components/auth-showcase";
 import {
   CreatePostForm,
@@ -12,10 +12,10 @@ import {
 } from "./_components/posts";
 
 export default function HomePage() {
-  // Served straight from the service — no HTTP round trip on the server.
+  // Served straight from the endpoint — no HTTP round trip on the server.
   prefetch({
     queryKey: postKeys.all,
-    queryFn: async () => postService.getAllPosts(await createContext()),
+    queryFn: () => getAllPosts(),
   });
 
   return (
