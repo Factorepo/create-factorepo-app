@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "extends": [
+    "./tooling/lint/base.json",
+    "./tooling/lint/react.json",
+    "./tooling/lint/nextjs.json",
+    "./tooling/lint/env.json"
+  ],
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.next/**",
+    "**/.expo/**",
+    "**/.cache/**",
+    "**/*.config.*",
+    "docs-archive/**"
+  ],
+  "options": {
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "warn"
+  }
+}

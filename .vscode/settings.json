@@ -1,7 +1,4 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ]
+  "oxc.enable": true,
+  "oxc.configPath": ".oxlintrc.json"
 }

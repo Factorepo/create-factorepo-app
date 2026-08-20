@@ -6,18 +6,21 @@ packages:
 catalog:
   "@better-auth/expo": 1.4.0-beta.9
   "@better-auth/cli": 1.4.0-beta.9
-  "@eslint/js": ^9.37.0
   "@tailwindcss/postcss": ^4.1.14
   "@tanstack/react-form": ^1.23.7
   "@tanstack/react-query": ^5.90.2
-  "@trpc/client": ^11.6.0
-  "@trpc/server": ^11.6.0
-  "@trpc/tanstack-react-query": ^11.6.0
+  "@testing-library/jest-dom": ^7.0.1
+  "@testing-library/react": ^16.3.2
+  "@testing-library/user-event": ^14.6.5
+  "@vitejs/plugin-react": ^6.0.5
   better-auth: 1.4.0-beta.9
-  eslint: ^9.37.0
+  jsdom: ^30.0.1
+  oxlint: ^1.79.0
+  oxlint-tsgolint: ^7.0.2001
   prettier: ^3.6.2
   tailwindcss: ^4.1.14
-  typescript: ^5.9.3
+  typescript: ^7.0.2
+  vitest: ^4.1.11
   zod: ^4.1.12
 
 catalogs:
@@ -26,6 +29,12 @@ catalogs:
     "@types/react-dom": ^19.1.9
     react: 19.1.1
     react-dom: 19.1.1
+  # `@expo/cli` reads tsconfig through the legacy TypeScript JS compiler API
+  # (`ts.sys`, `ts.readConfigFile`). TypeScript 7 is the native compiler and its
+  # main entry exports only `version`, so `expo start` throws. Hold Expo on
+  # TypeScript 5 until `@expo/cli` stops using that API.
+  ts5:
+    typescript: ^5.9.3
 
 linkWorkspacePackages: true
 
@@ -34,6 +43,17 @@ onlyBuiltDependencies:
 
 overrides:
   "@types/minimatch": 5.1.2
+  # Browser-support data feeding browserslist -> build targets (Babel, Next, and
+  # the lightningcss targets Expo derives for CSS). Babel and Next pin this
+  # transitively and had drifted ~10 months stale. Refresh with
+  # `npx update-browserslist-db@latest`, then bump this floor.
+  caniuse-lite: ^1.0.30001809
+  # lightningcss 1.30.2 breaks react-native-css's visitor-based compiler, failing
+  # the Expo build with "failed to deserialize; expected an object-like struct
+  # named Specifier, found ()". react-native-css only declares `lightningcss:
+  # >=1.27.0`, so it otherwise resolves to the broken release. 1.30.1 is the last
+  # version that works; drop this once the incompatibility is fixed upstream.
+  lightningcss: 1.30.1
 
 publicHoistPattern:
   - "@ianvs/prettier-plugin-sort-imports"

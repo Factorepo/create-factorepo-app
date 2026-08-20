@@ -1,24 +1,31 @@
-import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+export { stage } from "./stage";
+export type { StageEvent } from "./stage";
 
-import type { AppRouter } from "./root";
-import { appRouter } from "./root";
-import { createTRPCContext } from "./trpc";
+export type { PostSummary } from "./post/postSummary";
+export type { LikeSummary } from "./like/likeSummary";
 
-/**
- * Inference helpers for input types
- * @example
- * type PostByIdInput = RouterInputs['post']['byId']
- *      ^? { id: number }
- **/
-type RouterInputs = inferRouterInputs<AppRouter>;
+export { getAllPosts } from "./post/getAllPosts";
+export type { GetAllPostsResponse } from "./post/getAllPosts";
+export { getPost } from "./post/getPost";
+export type { GetPostRequest, GetPostResponse } from "./post/getPost";
+export { createPost } from "./post/createPost";
+export type { CreatePostRequest, CreatePostResponse } from "./post/createPost";
+export { deletePost } from "./post/deletePost";
+export type { DeletePostRequest, DeletePostResponse } from "./post/deletePost";
 
-/**
- * Inference helpers for output types
- * @example
- * type AllPostsOutput = RouterOutputs['post']['all']
- *      ^? Post[]
- **/
-type RouterOutputs = inferRouterOutputs<AppRouter>;
+export { likePost } from "./like/likePost";
+export type { LikePostRequest, LikePostResponse } from "./like/likePost";
+export { unlikePost } from "./like/unlikePost";
+export type { UnlikePostRequest, UnlikePostResponse } from "./like/unlikePost";
 
-export { createTRPCContext, appRouter };
-export type { AppRouter, RouterInputs, RouterOutputs };
+export type { ApiContext, AuthedApiContext } from "./context";
+export { createApiContext, requireSession } from "./context";
+
+export type { ApiErrorBody, ApiErrorCode, FieldErrors } from "./errors";
+export { parseInput } from "./errors";
+
+export type { RouteContext, RouteHandler } from "./handler";
+export { apiRoute, corsPreflight, readJsonBody } from "./handler";
+
+export { postRoutes } from "./routes/post";
+export { likeRoutes } from "./routes/like";

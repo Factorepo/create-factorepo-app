@@ -4,7 +4,7 @@ import type { PlopTypes } from "@turbo/gen";
 interface PackageJson {
   name: string;
   scripts: Record<string, string>;
-  dependencies: Record<string, string>;
+  dependencies?: Record<string, string>;
   devDependencies: Record<string, string>;
 }
 
@@ -16,7 +16,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         type: "input",
         name: "name",
         message:
-          "What is the name of the package? (You can skip the `@atlas/` prefix)",
+          "What is the name of the package? (You can skip the `@acme/` prefix)",
       },
       {
         type: "input",
@@ -28,16 +28,11 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     actions: [
       (answers) => {
         if ("name" in answers && typeof answers.name === "string") {
-          if (answers.name.startsWith("@atlas/")) {
-            answers.name = answers.name.replace("@atlas/", "");
+          if (answers.name.startsWith("@acme/")) {
+            answers.name = answers.name.replace("@acme/", "");
           }
         }
         return "Config sanitized";
-      },
-      {
-        type: "add",
-        path: "packages/{{ name }}/eslint.config.ts",
-        templateFile: "templates/eslint.config.ts.hbs",
       },
       {
         type: "add",

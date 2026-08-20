@@ -1,5 +1,5 @@
 {
-  "name": "@atlas/prettier-config",
+  "name": "@acme/prettier-config",
   "private": true,
   "type": "module",
   "exports": {
@@ -16,9 +16,9 @@
     "prettier-plugin-tailwindcss": "^0.6.14"
   },
   "devDependencies": {
-    "@atlas/tsconfig": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
     "@types/node": "^22.18.10",
     "typescript": "catalog:"
   },
-  "prettier": "@atlas/prettier-config"
+  "prettier": "@acme/prettier-config"
 }

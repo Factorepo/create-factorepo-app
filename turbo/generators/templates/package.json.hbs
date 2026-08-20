@@ -1,5 +1,5 @@
 {
-  "name": "@atlas/{{ name }}",
+  "name": "@acme/{{ name }}",
   "private": true,
   "type": "module",
   "exports": {
@@ -11,16 +11,13 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "tsc",
     "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "devDependencies": {
-    "@atlas/eslint-config": "workspace:*",
-    "@atlas/prettier-config": "workspace:*",
-    "@atlas/tsconfig": "workspace:*",
-    "eslint": "catalog:",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@atlas/prettier-config"
+  "prettier": "@acme/prettier-config"
 }

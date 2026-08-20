@@ -8,6 +8,14 @@
     },
     "dev": {
       "persistent": true
+    },
+    "typegen": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/types/**", "next-env.d.ts"]
+    },
+    "typecheck": {
+      "dependsOn": ["^topo", "^build", "typegen"],
+      "outputs": [".cache/tsbuildinfo.json"]
     }
   }
 }

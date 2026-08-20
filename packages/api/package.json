@@ -1,5 +1,5 @@
 {
-  "name": "@atlas/api",
+  "name": "@acme/api",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,24 +14,19 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "tsc",
     "format": "prettier --check . --ignore-path ../../.gitignore",
-    "lint": "eslint --flag unstable_native_nodejs_ts_config",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@atlas/auth": "workspace:*",
-    "@atlas/db": "workspace:*",
-    "@atlas/validators": "workspace:*",
-    "@trpc/server": "catalog:",
-    "superjson": "2.2.2",
+    "@acme/auth": "workspace:*",
+    "@acme/db": "workspace:*",
+    "@acme/service": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@atlas/eslint-config": "workspace:*",
-    "@atlas/prettier-config": "workspace:*",
-    "@atlas/tsconfig": "workspace:*",
-    "eslint": "catalog:",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@atlas/prettier-config"
+  "prettier": "@acme/prettier-config"
 }

@@ -2,11 +2,14 @@ import { SafeAreaView, Text, View } from "react-native";
 import { Stack, useGlobalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 
-import { trpc } from "~/utils/api";
+import { api, postKeys } from "~/utils/api";
 
 export default function Post() {
   const { id } = useGlobalSearchParams<{ id: string }>();
-  const { data } = useQuery(trpc.post.byId.queryOptions({ id }));
+  const { data } = useQuery({
+    queryKey: postKeys.detail(id),
+    queryFn: () => api.posts.byId(id),
+  });
 
   if (!data) return null;
 
