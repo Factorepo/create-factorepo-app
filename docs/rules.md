@@ -40,21 +40,17 @@ Use `constants` from every layer.
 
 ## 3. Read next
 
-| Path                                          | Read                                                               |
-| --------------------------------------------- | ------------------------------------------------------------------ |
-| [apps/backend](../apps/backend)               | [apps/backend.md](apps/backend.md)                                 |
-| [apps/consumer](../apps/consumer)             | [apps/consumer.md](apps/consumer.md)                               |
-| [apps/nextjs](../apps/nextjs)                 | [apps/nextjs.md](apps/nextjs.md)                                   |
-| [packages/api](../packages/api)               | [packages/api.md](packages/api.md)                                 |
-| [packages/service](../packages/service)       | [packages/service.md](packages/service.md)                         |
-| [packages/auth](../packages/auth)             | [packages/auth.md](packages/auth.md)                               |
-| [packages/constants](../packages/constants)   | [packages/constants.md](packages/constants.md)                     |
-| [packages/db](../packages/db)                 | [packages/boundary/db.md](packages/boundary/db.md)                 |
-| [packages/db-law](../packages/db-law)         | [packages/boundary/db.md](packages/boundary/db.md)                 |
-| [packages/email](../packages/email)           | [packages/boundary/email.md](packages/boundary/email.md)           |
-| [packages/gemini](../packages/gemini)         | [packages/boundary/gemini.md](packages/boundary/gemini.md)         |
-| [packages/opensearch](../packages/opensearch) | [packages/boundary/opensearch.md](packages/boundary/opensearch.md) |
-| [packages/payment](../packages/payment)       | [packages/boundary/payment.md](packages/boundary/payment.md)       |
-| [packages/rabbitmq](../packages/rabbitmq)     | [packages/boundary/rabbitmq.md](packages/boundary/rabbitmq.md)     |
-| [packages/storage](../packages/storage)       | [packages/boundary/storage.md](packages/boundary/storage.md)       |
-| [packages/ui](../packages/ui)                 | [packages/ui.md](packages/ui.md)                                   |
+| Path                                        | Read                                                         |
+| ------------------------------------------- | ------------------------------------------------------------ |
+| [apps/backend](../apps/backend)             | [apps/backend.md](apps/backend.md)                           |
+| [apps/nextjs](../apps/nextjs)               | [apps/nextjs.md](apps/nextjs.md)                             |
+| [packages/api](../packages/api)             | [packages/api.md](packages/api.md)                           |
+| [packages/service](../packages/service)     | [packages/service.md](packages/service.md)                   |
+| [packages/auth](../packages/auth)           | [packages/auth.md](packages/auth.md)                         |
+| [packages/constants](../packages/constants) | [packages/constants.md](packages/constants.md)               |
+| [packages/db](../packages/db)               | [packages/boundary/db.md](packages/boundary/db.md)           |
+| [packages/email](../packages/email)         | [packages/boundary/email.md](packages/boundary/email.md)     |
+| [packages/gemini](../packages/gemini)       | [packages/boundary/gemini.md](packages/boundary/gemini.md)   |
+| [packages/payment](../packages/payment)     | [packages/boundary/payment.md](packages/boundary/payment.md) |
+| [packages/storage](../packages/storage)     | [packages/boundary/storage.md](packages/boundary/storage.md) |
+| [packages/ui](../packages/ui)               | [packages/ui.md](packages/ui.md)                             |
