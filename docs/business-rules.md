@@ -2,4 +2,4 @@
 
 ## 1. Errors
 
-1. Write every user-facing message in Turkish.
+1. Write every user-facing message in English.
