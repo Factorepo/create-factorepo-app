@@ -223,6 +223,9 @@ importers:
       '@acme/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@acme/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@acme/db':
         specifier: workspace:*
         version: link:../../packages/db

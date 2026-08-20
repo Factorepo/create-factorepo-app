@@ -1,19 +1,16 @@
-import type { z } from "zod/v4";
-
 import type {
   ApiErrorBody,
   ApiErrorCode,
+  CreatePostRequest,
   FieldErrors,
   LikeSummary,
   PostSummary,
 } from "@acme/api";
-import type { CreatePostSchema } from "@acme/db/schema";
 
 import { env } from "~/env";
 
-export type NewPost = z.infer<typeof CreatePostSchema>;
+export type NewPost = CreatePostRequest;
 
-/** An error response from the API, carrying the code the server assigned it. */
 export class ApiClientError extends Error {
   readonly code: ApiErrorCode;
   readonly fieldErrors?: FieldErrors;

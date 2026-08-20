@@ -5,20 +5,23 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { PostSummary } from "@acme/api";
+import { POST_DELETE_SUBMIT } from "@acme/constants";
 
-import { PostCard } from "../posts";
+import { PostCard } from "~/app/_components/post/post-card";
 
 const deletePost = vi.fn();
 const createLike = vi.fn();
 
-vi.mock("~/api/client", () => ({
-  ApiClientError: class ApiClientError extends Error {},
-  postKeys: { all: ["posts"] },
-  api: {
-    likes: { create: (id: string) => createLike(id) },
-    posts: { delete: (id: string) => deletePost(id) },
-  },
-}));
+vi.mock("~/api/client", async (importOriginal) => {
+  const actual = await importOriginal<object>();
+  return {
+    ...actual,
+    api: {
+      likes: { create: (id: string) => createLike(id) },
+      posts: { delete: (id: string) => deletePost(id) },
+    },
+  };
+});
 
 vi.mock("@acme/ui/toast", () => ({
   toast: { error: vi.fn(), success: vi.fn() },
@@ -61,6 +64,12 @@ describe("PostCard", () => {
     expect(screen.getByText("3")).toBeInTheDocument();
   });
 
+  it("renders a post nobody liked yet", () => {
+    renderPostCard({ post: { ...post, likeCount: 0 } });
+
+    expect(screen.getByText("0")).toBeInTheDocument();
+  });
+
   it("likes the post it renders", async () => {
     const user = userEvent.setup();
     renderPostCard({ post });
@@ -74,7 +83,7 @@ describe("PostCard", () => {
     const user = userEvent.setup();
     renderPostCard({ post });
 
-    await user.click(screen.getByRole("button", { name: /delete/i }));
+    await user.click(screen.getByRole("button", { name: POST_DELETE_SUBMIT }));
 
     expect(deletePost).toHaveBeenCalledWith(post.id);
   });

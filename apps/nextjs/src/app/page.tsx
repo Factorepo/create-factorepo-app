@@ -1,18 +1,22 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { getAllPosts } from "@acme/api";
+import { HOME_DESCRIPTION, HOME_TITLE } from "@acme/constants";
 
 import { postKeys } from "~/api/client";
 import { HydrateClient, prefetch } from "~/api/server";
-import { AuthShowcase } from "./_components/auth-showcase";
-import {
-  CreatePostForm,
-  PostCardSkeleton,
-  PostList,
-} from "./_components/posts";
+import { AuthShowcase } from "~/app/_components/auth/auth-showcase";
+import { CreatePostForm } from "~/app/_components/post/create-post-form";
+import { PostList } from "~/app/_components/post/post-list";
+import { PostListSkeleton } from "~/app/_components/post/post-list-skeleton";
+
+export const metadata: Metadata = {
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+};
 
 export default function HomePage() {
-  // Served straight from the endpoint — no HTTP round trip on the server.
   prefetch({
     queryKey: postKeys.all,
     queryFn: () => getAllPosts(),
@@ -22,22 +26,14 @@ export default function HomePage() {
     <HydrateClient>
       <main className="container h-screen py-16">
         <div className="flex flex-col items-center justify-center gap-4">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
+          <h1 className="text-5xl font-extrabold tracking-tight sm:text-7xl">
             Create <span className="text-primary">T3</span> Turbo
           </h1>
           <AuthShowcase />
 
           <CreatePostForm />
           <div className="w-full max-w-2xl overflow-y-scroll">
-            <Suspense
-              fallback={
-                <div className="flex w-full flex-col gap-4">
-                  <PostCardSkeleton />
-                  <PostCardSkeleton />
-                  <PostCardSkeleton />
-                </div>
-              }
-            >
+            <Suspense fallback={<PostListSkeleton />}>
               <PostList />
             </Suspense>
           </div>

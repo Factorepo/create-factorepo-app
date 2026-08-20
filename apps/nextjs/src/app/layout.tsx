@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import {
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  SITE_OPEN_GRAPH_URL,
+  SITE_PRODUCTION_URL,
+} from "@acme/constants";
 import { cn } from "@acme/ui";
 import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
 import { Toaster } from "@acme/ui/toast";
@@ -13,21 +19,16 @@ import "~/app/globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
-      ? "https://turbo.t3.gg"
+      ? SITE_PRODUCTION_URL
       : "http://localhost:3000",
   ),
-  title: "Create T3 Turbo",
-  description: "Simple monorepo with shared backend for web & mobile apps",
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
   openGraph: {
-    title: "Create T3 Turbo",
-    description: "Simple monorepo with shared backend for web & mobile apps",
-    url: "https://create-t3-turbo.vercel.app",
-    siteName: "Create T3 Turbo",
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: SITE_OPEN_GRAPH_URL,
+    siteName: HOME_TITLE,
   },
 };
 

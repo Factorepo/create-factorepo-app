@@ -8,7 +8,13 @@ await jiti.import("./src/env");
 /** @type {import("next").NextConfig} */
 const config = {
   /** Enables hot reloading for local packages without a build step */
-  transpilePackages: ["@acme/api", "@acme/auth", "@acme/db", "@acme/ui"],
+  transpilePackages: [
+    "@acme/api",
+    "@acme/auth",
+    "@acme/constants",
+    "@acme/db",
+    "@acme/ui",
+  ],
 
   /** We already do linting and typechecking as separate tasks in CI */
   typescript: { ignoreBuildErrors: true },

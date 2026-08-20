@@ -16,6 +16,7 @@
   "dependencies": {
     "@acme/api": "workspace:*",
     "@acme/auth": "workspace:*",
+    "@acme/constants": "workspace:*",
     "@acme/db": "workspace:*",
     "@acme/ui": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.8",

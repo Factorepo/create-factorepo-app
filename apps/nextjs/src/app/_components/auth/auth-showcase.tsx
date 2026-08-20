@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { AUTH_SIGN_IN, AUTH_SIGN_OUT, authSignedInAs } from "@acme/constants";
 import { Button } from "@acme/ui/button";
 
 import { auth, getSession } from "~/auth/server";
@@ -16,10 +17,7 @@ export async function AuthShowcase() {
           formAction={async () => {
             "use server";
             const res = await auth.api.signInSocial({
-              body: {
-                provider: "discord",
-                // callbackURL: "/",
-              },
+              body: { provider: "discord" },
             });
             if (!res.url) {
               throw new Error("No URL returned from signInSocial");
@@ -27,7 +25,7 @@ export async function AuthShowcase() {
             redirect(res.url);
           }}
         >
-          Sign in with Discord
+          {AUTH_SIGN_IN}
         </Button>
       </form>
     );
@@ -36,7 +34,7 @@ export async function AuthShowcase() {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl">
-        <span>Logged in as {session.user.name}</span>
+        <span>{authSignedInAs(session.user.name)}</span>
       </p>
 
       <form>
@@ -44,13 +42,11 @@ export async function AuthShowcase() {
           size="lg"
           formAction={async () => {
             "use server";
-            await auth.api.signOut({
-              headers: await headers(),
-            });
+            await auth.api.signOut({ headers: await headers() });
             redirect("/");
           }}
         >
-          Sign out
+          {AUTH_SIGN_OUT}
         </Button>
       </form>
     </div>
