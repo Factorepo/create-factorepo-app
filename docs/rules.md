@@ -20,6 +20,8 @@ Read this file first, then read [common-rules](./common-rules.md) and [business-
 
 `nextjs` -> `backend`, `ui`
 
+`expo` -> `api` for a type only
+
 `backend` -> `api`, `auth`
 
 `consumer` -> `api`
@@ -43,6 +45,7 @@ Use `constants` from every layer.
 | Path                                        | Read                                                         |
 | ------------------------------------------- | ------------------------------------------------------------ |
 | [apps/backend](../apps/backend)             | [apps/backend.md](apps/backend.md)                           |
+| [apps/expo](../apps/expo)                   | [apps/expo.md](apps/expo.md)                                 |
 | [apps/nextjs](../apps/nextjs)               | [apps/nextjs.md](apps/nextjs.md)                             |
 | [packages/api](../packages/api)             | [packages/api.md](packages/api.md)                           |
 | [packages/service](../packages/service)     | [packages/service.md](packages/service.md)                   |

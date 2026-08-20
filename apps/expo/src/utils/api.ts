@@ -8,22 +8,15 @@ import type {
   PostSummary,
 } from "@acme/api";
 
-import { authClient } from "./auth";
-import { getBaseUrl } from "./base-url";
+import { authClient } from "~/utils/auth";
+import { getBaseUrl } from "~/utils/base-url";
 
 export type { LikeSummary, PostSummary } from "@acme/api";
 
 export type NewPost = Pick<PostSummary, "title" | "content">;
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      // ...
-    },
-  },
-});
+export const queryClient = new QueryClient();
 
-/** An error response from the API, carrying the code the server assigned it. */
 export class ApiClientError extends Error {
   readonly code: ApiErrorCode;
   readonly fieldErrors?: FieldErrors;
@@ -73,10 +66,7 @@ export const postKeys = {
   detail: (id: string) => ["posts", id] as const,
 };
 
-/**
- * A set of typesafe calls against the Next.js API. The response types come from
- * `@acme/api`, which is a dev dependency here so no backend code is bundled.
- */
+// `@acme/api` stays a dev dependency so no backend code reaches the bundle.
 export const api = {
   posts: {
     list: () => request<PostSummary[]>("/api/posts"),
