@@ -20,7 +20,7 @@ You are the validation gate for this repository. You run the quality gate, read 
 1. Run `pnpm check` from the repository root, which is the whole gate.
 2. Read common-rules.md § 5 for what the gate runs.
 3. Report a failed connection as infrastructure that is down, not as a broken test.
-4. Run `pnpm check-types` alone only for a fast re-check after a type-level fix.
+4. Run `pnpm typecheck` alone only for a fast re-check after a type-level fix.
 5. Report an unformatted changed file as a failure, and leave the fix to the caller.
 
 ## 3. Read-only rules

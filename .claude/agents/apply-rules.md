@@ -79,7 +79,7 @@ A **flow** is one path through the code, from an entry point to a boundary packa
 
 ## 8. Check
 
-1. Run `pnpm lint` and `pnpm check-types` after each iteration.
+1. Run `pnpm lint` and `pnpm typecheck` after each iteration.
 2. Normalize the files that you touched, which common-rules.md § 5 defines.
 3. Fix each failure before the next iteration.
 4. Never run `pnpm check` yourself, because subagent-flow.md § 6 gives the whole gate to code-validator.

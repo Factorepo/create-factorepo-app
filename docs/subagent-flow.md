@@ -74,6 +74,6 @@ make a change, and never from the main conversation.
 
 Expect the validator to be read-only, because it runs the quality gate and edits
 nothing. Never let another agent run a quality-check command in this flow. Let
-apply-rules run `pnpm lint` and `pnpm check-types` between its iterations, and
+apply-rules run `pnpm lint` and `pnpm typecheck` between its iterations, and
 never the whole gate. Treat a reported cap as a valid end to the loop, and never
 as a reason to spawn another agent.

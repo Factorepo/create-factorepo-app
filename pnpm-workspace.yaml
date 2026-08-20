@@ -29,6 +29,12 @@ catalogs:
     "@types/react-dom": ^19.1.9
     react: 19.1.1
     react-dom: 19.1.1
+  # `@expo/cli` reads tsconfig through the legacy TypeScript JS compiler API
+  # (`ts.sys`, `ts.readConfigFile`). TypeScript 7 is the native compiler and its
+  # main entry exports only `version`, so `expo start` throws. Hold Expo on
+  # TypeScript 5 until `@expo/cli` stops using that API.
+  ts5:
+    typescript: ^5.9.3
 
 linkWorkspacePackages: true
 
