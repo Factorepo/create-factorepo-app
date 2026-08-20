@@ -8,6 +8,8 @@
     "dev": "pnpm with-env next dev",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "start": "pnpm with-env next start",
+    "test": "vitest run",
+    "typegen": "next typegen",
     "typecheck": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --"
   },
@@ -20,7 +22,7 @@
     "@tanstack/react-form": "catalog:",
     "@tanstack/react-query": "catalog:",
     "better-auth": "catalog:",
-    "next": "^16.0.0",
+    "next": "^16.3.1",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "zod": "catalog:"
@@ -29,14 +31,20 @@
     "@acme/prettier-config": "workspace:*",
     "@acme/tailwind-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/node": "^22.18.10",
     "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
+    "@vitejs/plugin-react": "catalog:",
     "jiti": "^2.5.1",
+    "jsdom": "catalog:",
     "prettier": "catalog:",
     "tailwindcss": "catalog:",
     "tw-animate-css": "^1.4.0",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "prettier": "@acme/prettier-config"
 }

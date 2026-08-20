@@ -21,6 +21,7 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "check": "pnpm lint && pnpm typecheck && pnpm test:nextjs",
     "postinstall": "pnpm lint:ws",
+    "test:nextjs": "pnpm -F @acme/nextjs test",
     "typecheck": "turbo run typecheck",
     "ui-add": "turbo run ui-add",
     "android": "expo run:android",

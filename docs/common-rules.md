@@ -33,7 +33,7 @@
 ## 5. The quality gate
 
 1. Treat `pnpm check` as the canonical gate, and run it yourself.
-2. Know that it runs lint, `check-types`, then the nextjs, backend, and consumer
+2. Know that it runs lint, `typecheck`, then the nextjs, backend, and consumer
    suites.
 3. Never run `pnpm format`; normalize your own files with
    `pnpm exec prettier --write <paths>`.
