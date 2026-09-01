@@ -7,11 +7,9 @@
   ],
   "scripts": {
     "clean": "git clean -xdf .cache .turbo node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore"
+    "format": "oxfmt --check . --ignore-path ../../.gitignore"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:*",
-    "prettier": "catalog:"
-  },
-  "prettier": "@acme/prettier-config"
+    "oxfmt": "catalog:"
+  }
 }

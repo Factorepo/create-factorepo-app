@@ -33,10 +33,10 @@
 ## 5. The quality gate
 
 1. Treat `pnpm check` as the canonical gate, and run it yourself.
-2. Know that it runs lint, `typecheck`, then the nextjs, backend, and consumer
+2. Know that it runs lint, `typecheck`, then the nextjs
    suites.
 3. Never run `pnpm format`; normalize your own files with
-   `pnpm exec prettier --write <paths>`.
+   `pnpm exec oxfmt <paths>`.
 4. Never hide a failure with a widened type or a swallowed catch.
 5. Never loosen the tsconfig or the oxlint config. Name the cause instead.
 
@@ -44,9 +44,7 @@
 
 1. Treat a feature without tests as unfinished.
 2. Test through a public surface, never through a private internal.
-3. Test an endpoint through `apps/backend/test`.
-4. Test a consumer through `apps/consumer/test`.
-5. Never change production code to make a test pass, and never weaken an
+3. Never change production code to make a test pass, and never weaken an
    assertion.
 
 ## 7. Logging

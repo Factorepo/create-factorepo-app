@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format": "oxfmt --check . --ignore-path ../../.gitignore",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,11 +23,9 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
     "@types/react": "catalog:react19",
-    "prettier": "catalog:",
+    "oxfmt": "catalog:",
     "typescript": "catalog:"
-  },
-  "prettier": "@acme/prettier-config"
+  }
 }

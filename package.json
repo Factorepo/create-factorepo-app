@@ -14,7 +14,7 @@
     "db:studio": "turbo -F @acme/db studio",
     "dev": "turbo watch dev --continue --filter=!@acme/expo",
     "dev:next": "turbo watch dev -F @acme/nextjs...",
-    "format": "prettier --write --list-different \"**/*.{ts,tsx,md}\"",
+    "format": "oxfmt \"**/*.{ts,tsx,md}\"",
     "lint": "oxlint --type-aware --report-unused-disable-directives",
     "lint:fix": "oxlint --type-aware --report-unused-disable-directives --fix",
     "lint:ws": "pnpm dlx sherif@latest",
@@ -28,15 +28,14 @@
     "dev:expo": "turbo -F @acme/expo dev"
   },
   "devDependencies": {
-    "@acme/prettier-config": "workspace:*",
+    "@acme/oxfmt-config": "workspace:*",
     "@turbo/gen": "^2.5.8",
     "dotenv-cli": "^10.0.0",
     "husky": "^9.1.7",
+    "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "oxlint-tsgolint": "catalog:",
-    "prettier": "catalog:",
     "turbo": "^2.5.8",
     "typescript": "catalog:"
-  },
-  "prettier": "@acme/prettier-config"
+  }
 }

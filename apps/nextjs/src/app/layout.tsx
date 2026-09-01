@@ -13,7 +13,6 @@ import { Toaster } from "@acme/ui/toast";
 
 import { QueryProvider } from "~/api/react";
 import { env } from "~/env";
-
 import "~/app/globals.css";
 
 export const metadata: Metadata = {

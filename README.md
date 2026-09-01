@@ -59,8 +59,8 @@ packages
 tooling
   ├─ lint
   │   └─ shared oxlint configuration, composed by the root `.oxlintrc.json`
-  ├─ prettier
-  │   └─ shared prettier configuration
+  ├─ oxfmt
+  │   └─ shared oxfmt configuration, loaded by the root `oxfmt.config.mts`
   ├─ tailwind
   │   └─ shared tailwind theme and configuration
   └─ typescript

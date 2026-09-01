@@ -24,8 +24,6 @@ Read this file first, then read [common-rules](./common-rules.md) and [business-
 
 `backend` -> `api`, `auth`
 
-`consumer` -> `api`
-
 `api` -> `service`, a boundary package
 
 `auth` -> `service`, a boundary package
@@ -35,7 +33,7 @@ Read this file first, then read [common-rules](./common-rules.md) and [business-
 Point every arrow one way, and never back.
 
 A **boundary package** is the only door to one external system, and holds no
-business rule. The boundary packages are `db`, `db-law`, `email`, `gemini`,
+business rule. The boundary packages are `db`, `email`, `gemini`,
 `opensearch`, `payment`, `rabbitmq`, and `storage`.
 
 Use `constants` from every layer.

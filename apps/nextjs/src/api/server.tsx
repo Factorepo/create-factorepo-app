@@ -9,9 +9,8 @@ import { createApiContext } from "@acme/api";
 import { createQueryClient } from "~/api/query-client";
 import { auth } from "~/auth/server";
 
-export const createContext = cache(
-  async (): Promise<ApiContext> =>
-    createApiContext({ headers: new Headers(await headers()), auth }),
+export const createContext = cache(async (): Promise<ApiContext> =>
+  createApiContext({ headers: new Headers(await headers()), auth }),
 );
 
 const getQueryClient = cache(createQueryClient);

@@ -13,11 +13,12 @@ catalog:
   "@testing-library/react": ^16.3.2
   "@testing-library/user-event": ^14.6.5
   "@vitejs/plugin-react": ^6.0.5
+  "@vitest/coverage-v8": ^4.1.11
   better-auth: 1.4.0-beta.9
   jsdom: ^30.0.1
+  oxfmt: ^0.65.0
   oxlint: ^1.79.0
   oxlint-tsgolint: ^7.0.2001
-  prettier: ^3.6.2
   tailwindcss: ^4.1.14
   typescript: ^7.0.2
   vitest: ^4.1.11
@@ -54,7 +55,3 @@ overrides:
   # >=1.27.0`, so it otherwise resolves to the broken release. 1.30.1 is the last
   # version that works; drop this once the incompatibility is fixed upstream.
   lightningcss: 1.30.1
-
-publicHoistPattern:
-  - "@ianvs/prettier-plugin-sort-imports"
-  - prettier-plugin-tailwindcss

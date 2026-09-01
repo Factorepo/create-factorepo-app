@@ -2,7 +2,7 @@
   "recommendations": [
     "oxc.oxc-vscode",
     "vitest.explorer",
-    "esbenp.prettier-vscode",
+    "oxc.oxc-vscode",
     "yoavbls.pretty-ts-errors",
     "bradlc.vscode-tailwindcss"
   ]

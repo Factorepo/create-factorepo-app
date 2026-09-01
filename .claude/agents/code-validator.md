@@ -32,7 +32,7 @@ You are the validation gate for this repository. You run the quality gate, read 
 
 ## 4. Silent-violation sweep
 
-`pnpm check` does not catch these, and no other agent greps for them. Take the changed files from `git diff --name-only` and `git status`, run `pnpm exec prettier --check <changed files>`, then grep for each pattern.
+`pnpm check` does not catch these, and no other agent greps for them. Take the changed files from `git diff --name-only` and `git status`, run `pnpm exec oxfmt --check <changed files>`, then grep for each pattern.
 
 | Grep                                                                 | Rule                        |
 | -------------------------------------------------------------------- | --------------------------- |
