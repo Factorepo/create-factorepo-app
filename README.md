@@ -156,10 +156,10 @@ You can alternatively add your local IP (e.g. `192.168.x.y:$PORT`) to your OAuth
 
 ### 5a. When it's time to add a new UI component
 
-Run the `ui-add` script to add a new UI component using the interactive `shadcn/ui` CLI:
+Run the `ui:add` script to add a new UI component using the interactive `shadcn/ui` CLI:
 
 ```bash
-pnpm ui-add
+pnpm ui:add
 ```
 
 When the component(s) has been installed, you should be good to go and start using it in your app.

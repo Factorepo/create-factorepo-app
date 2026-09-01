@@ -2,7 +2,8 @@
 
 Read [../../boundary-rules.md](../../boundary-rules.md) first.
 
-Create a package for each different database. The package name must be db or db-\*.
+Create a package for each different database. The package name must be `db` or
+`db-*`.
 
 ## 1. Responsibility
 
@@ -14,7 +15,7 @@ Create a package for each different database. The package name must be db or db-
 
 1. Keep the client and the schema entry point at the source root.
 2. Create a folder for each entity in repository.
-3. Create a utils folder for helper funtions.
+3. Create a utils folder for helper functions.
 4. Put the `<entity>.ts` schema file in this folder.
 5. Add an `<entity>Repository.ts` file to this folder only when a caller reads
    or writes the entity.

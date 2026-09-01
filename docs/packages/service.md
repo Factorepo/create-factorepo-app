@@ -7,9 +7,9 @@ The service package owns the **units of work**.
 1. Write a service function only for logic that is dependent, transactional, or shared.
 2. Treat logic as dependent when one step always needs the result of another.
 3. Treat logic as transactional when two writes must succeed together.
-4. Treat logic as shared when atleast two flows call it.
+4. Treat logic as shared when two or more flows call it.
 5. Perform a unit of work in service functions.
-6. Write a guard function ofr the business check or domain logic, with one responsibility each.
+6. Write a guard function for each business check or domain rule, with one responsibility each.
 
 ## 2. Layout
 
@@ -32,6 +32,6 @@ The service package owns the **units of work**.
 3. Never write a query, and never build a client or a connection.
 4. Never get boundary functions or the database model from the request. Use your own import statements
 
-## 6. Failure modes
+## 5. Failure modes
 
 1. If it is necessary, throw a business error.

@@ -25,35 +25,37 @@
 
 1. Keep the lint rules in `tooling/lint`.
 2. Silence one line with a disable comment, and write the reason on the comment.
-3. Silence a whole file with a file-level disable comment at the top, and write
-   the reason.
-4. Never add a folder-scoped exemption. Put every exception in the file it
-   applies to.
+3. Silence a whole file with a file-level disable comment at the top, and write the reason.
+4. Never add a folder-scoped exemption. Put every exception in the file it applies to.
 
-## 5. The quality gate
+## 5. The formatter
+
+1. Keep the format options in `tooling/oxfmt`.
+2. Keep `oxfmt.config.mts` at the root, and write only a re-export in it.
+3. Never add a format config to a package. Keep every format option in the one config.
+
+## 6. The quality gate
 
 1. Treat `pnpm check` as the canonical gate, and run it yourself.
-2. Know that it runs lint, `typecheck`, then the nextjs
-   suites.
-3. Never run `pnpm format`; normalize your own files with
-   `pnpm exec oxfmt <paths>`.
+2. Know that it runs lint, `typecheck`, then the nextjs suite.
+3. Never run `pnpm format`; normalize your own files with `pnpm exec oxfmt <paths>`.
 4. Never hide a failure with a widened type or a swallowed catch.
 5. Never loosen the tsconfig or the oxlint config. Name the cause instead.
 
-## 6. Tests
+## 7. Tests
 
 1. Treat a feature without tests as unfinished.
 2. Test through a public surface, never through a private internal.
-3. Never change production code to make a test pass, and never weaken an
-   assertion.
+3. Test an endpoint through the exported route object of [packages/api](packages/api.md), and never through a private helper.
+4. Never change production code to make a test pass, and never weaken an assertion.
 
-## 7. Logging
+## 8. Logging
 
 1. Log in the API package only.
 2. Log in another package only when the user asks, and mark it `// Justification: User request`.
 3. Keep the logger, the log events, and the error at the root of the service package.
 
-## 8. Never push
+## 9. Never push
 
 1. Never start a push, a migration, or a generate command on a database for any reason. Examples include `pnpm db:push` and `@better-auth/cli generate`.
 2. Never write code or documents that tell an agent to start these commands.

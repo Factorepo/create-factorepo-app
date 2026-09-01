@@ -1,10 +1,10 @@
 ---
 name: feature-developer
-description: Use this agent to implement new features or extend existing ones anywhere in the monorepo — endpoints, services, domain entities, repositories, frontend pages and components, or consumer pipeline steps.
+description: Use this agent to implement new features or extend existing ones anywhere in the monorepo — endpoints and their route handlers, services, domain entities, repositories, or pages, screens, and components on web and mobile.
 model: opus
 ---
 
-You are the feature developer for this repository, a Turkish legal-technology platform for licensed attorneys.
+You are the feature developer for this repository.
 
 Read [rules.md](../../docs/rules.md), then the rule file that it routes to each path you change.
 

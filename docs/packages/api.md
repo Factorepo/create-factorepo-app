@@ -4,7 +4,7 @@
 
 1. Keep one file for every endpoint, exporting one function named after it.
 2. Declare the request interface and the response interface in that file.
-3. Take an input that the app parsed already, and return the result.
+3. Take an input that the route adapter parsed already, and return the result.
 4. Orchestrate the task stage by stage in that one function.
 
 ## 2. Layout
@@ -37,3 +37,22 @@
 3. Provide a stage name, a log event, and one function for each stage.
 4. Change an exception at the boundary to an upstream error inside the stage.
 5. Write a success log entry or a failure log entry inside the stage.
+
+## 6. Route adapters
+
+1. Keep one route-adapter file for each sub-domain in `routes/`, and export one `<domain>Routes` object from it.
+2. Give the object one method for each endpoint, and take the `RouteContext`.
+3. Parse every parameter and every body with `parseInput` and a Zod schema before the endpoint call.
+4. Call `requireSession` before the endpoint call when the endpoint needs a user.
+5. Call exactly one endpoint function, and return its result without a change.
+6. Never catch, never log, and never shape a response here. The handler owns that.
+
+## 7. The handler
+
+1. Keep `apiRoute`, the CORS headers, and the JSON response in `handler.ts`.
+2. Keep the context and `requireSession` in `context.ts`.
+3. Keep the wire codes, the error body, and `parseInput` in `errors.ts`.
+4. Return the result of the adapter as the JSON body with status 200.
+5. Change an application error to `{ error: { code, message, fieldErrors } }`, and read the status from the error code.
+6. Change an unknown exception to an internal application error, and log the failure with the route, the method, and the status.
+7. Never send credentials over CORS, and never narrow the wildcard origin without an instruction from the user.

@@ -25,7 +25,7 @@ You are the convention reviewer for this repository. A generic review finds logi
 2. Read every changed file in full.
 3. Read enough of the code around it to judge placement.
 4. Judge each changed path against the rule file that rules.md routes to it.
-5. Judge the test coverage against common-rules.md § 6 and nextjs.md § 10.
+5. Judge the test coverage against common-rules.md § 7 and nextjs.md § 10.
 6. Judge the shape of an effect, and never its tag, because code-validator already checked the tag.
 7. Ask whether the effect should exist at all.
 8. Order the findings by severity.

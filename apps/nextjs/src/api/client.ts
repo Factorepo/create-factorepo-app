@@ -32,7 +32,7 @@ const isApiErrorBody = (body: unknown): body is ApiErrorBody =>
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return window.location.origin;
-  if (env.VERCEL_URL) return `https://${env.VERCEL_URL}`;
+  if (env.APP_URL) return env.APP_URL;
   // oxlint-disable-next-line no-restricted-properties -- PORT is read before the env module loads, during local dev only.
   return `http://localhost:${process.env.PORT ?? 3000}`;
 };

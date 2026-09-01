@@ -1,7 +1,7 @@
 # Next.js
 
 The frontend owns the **rendering and the interaction**. It owns no business
-rule.
+rule. [backend.md](backend.md) owns the API routes inside this app.
 
 ## 1. Responsibility
 
@@ -37,7 +37,7 @@ rule.
    page file.
 2. Never ship a monolithic component. Extract nested markup, a complex
    conditional, and a distinct section.
-3. Never add a legacy pages directory, and never call a framework route handler.
+3. Never add a legacy pages directory.
 4. Never hand-type an API response. Import the type of the endpoint from
    [packages/api](../../packages/api).
 5. Never write an ad-hoc style value or a raw palette color such as `slate-*`.
@@ -53,8 +53,8 @@ rule.
 2. Give a route `loading.tsx` when its page awaits data, and `error.tsx` when it
    can fail.
 3. Mark `error.tsx` as a client component, and offer a retry that calls `reset`.
-4. Keep one `not-found.tsx` at the root, and keep `src/proxy.ts` up-to-date with
-   new pages.
+4. Keep one `not-found.tsx` at the root. Keep the page guard in `src/proxy.ts`,
+   and add every protected route prefix to it.
 
 > Only a server component can export metadata. The root layout supplies every
 > other field.
@@ -90,13 +90,14 @@ rule.
 
 ## 8. Data
 
-1. Point the auth client base URL at `NEXT_PUBLIC_BACKEND_URL`.
+1. Create the auth client with no base URL, because the API lives on the same
+   origin.
 2. Forward the incoming headers from a server component.
 3. Prefetch with `prefetch` and `HydrateClient` when a client component needs
    the same data.
 4. Seed the query cache from a mutation result, and never refetch in that case.
-
-> A base URL on the frontend origin produces a call that returns 404.
+5. Call an API route only through the typed client of `src/api/client.ts`, and
+   never with a hand-built fetch.
 
 ## 9. Forms
 

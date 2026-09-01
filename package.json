@@ -22,7 +22,7 @@
     "postinstall": "pnpm lint:ws",
     "test:nextjs": "pnpm -F @acme/nextjs test",
     "typecheck": "turbo run typecheck",
-    "ui-add": "turbo run ui-add",
+    "ui:add": "turbo run ui-add",
     "android": "pnpm -F @acme/expo android",
     "ios": "pnpm -F @acme/expo ios",
     "dev:expo": "turbo -F @acme/expo dev"

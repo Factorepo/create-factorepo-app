@@ -42,9 +42,9 @@
   },
   "globalEnv": [
     "POSTGRES_URL",
+    "APP_URL",
     "AUTH_DISCORD_ID",
     "AUTH_DISCORD_SECRET",
-    "AUTH_REDIRECT_PROXY_URL",
     "AUTH_SECRET",
     "CLOUDFLARE_ACCOUNT_ID",
     "CLOUDFLARE_API_TOKEN",
@@ -60,12 +60,5 @@
     "STORAGE_PUBLIC_URL",
     "STORAGE_URL"
   ],
-  "globalPassThroughEnv": [
-    "NODE_ENV",
-    "CI",
-    "VERCEL",
-    "VERCEL_ENV",
-    "VERCEL_URL",
-    "npm_lifecycle_event"
-  ]
+  "globalPassThroughEnv": ["NODE_ENV", "CI", "npm_lifecycle_event"]
 }

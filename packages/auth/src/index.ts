@@ -2,13 +2,11 @@ import type { BetterAuthOptions } from "better-auth";
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
-import { oAuthProxy } from "better-auth/plugins";
 
 import { authAdapter } from "@acme/db";
 
 export function initAuth(options: {
   baseUrl: string;
-  productionUrl: string;
   secret: string | undefined;
 
   discordClientId: string;
@@ -23,13 +21,7 @@ export function initAuth(options: {
         generateId: () => crypto.randomUUID(),
       },
     },
-    plugins: [
-      oAuthProxy({
-        productionURL: options.productionUrl,
-      }),
-      expo(),
-      nextCookies(),
-    ],
+    plugins: [expo(), nextCookies()],
     socialProviders: {
       discord: {
         clientId: options.discordClientId,

@@ -1,2 +1,2 @@
-export const SITE_PRODUCTION_URL = "https://turbo.t3.gg";
-export const SITE_OPEN_GRAPH_URL = "https://create-t3-turbo.vercel.app";
+export const SITE_PRODUCTION_URL = "https://acme.example.com";
+export const SITE_OPEN_GRAPH_URL = SITE_PRODUCTION_URL;
