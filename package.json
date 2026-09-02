@@ -18,14 +18,16 @@
     "lint": "oxlint --type-aware --report-unused-disable-directives",
     "lint:fix": "oxlint --type-aware --report-unused-disable-directives --fix",
     "lint:ws": "pnpm dlx sherif@latest",
-    "check": "pnpm lint && pnpm typecheck && pnpm test:nextjs",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
     "postinstall": "pnpm lint:ws",
     "test:nextjs": "pnpm -F @acme/nextjs test",
     "typecheck": "turbo run typecheck",
     "ui:add": "turbo run ui-add",
     "android": "pnpm -F @acme/expo android",
     "ios": "pnpm -F @acme/expo ios",
-    "dev:expo": "turbo -F @acme/expo dev"
+    "dev:expo": "turbo -F @acme/expo dev",
+    "format:check": "oxfmt --check . --ignore-path .gitignore",
+    "test": "turbo run test"
   },
   "devDependencies": {
     "@acme/oxfmt-config": "workspace:*",

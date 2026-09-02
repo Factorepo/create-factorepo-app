@@ -19,3 +19,6 @@ export { authLog, httpLog, likeLog, postLog, stageLog } from "./logEvents";
 
 export { postGuards } from "./post/postGuards";
 export { likeGuards } from "./like/likeGuards";
+
+export { likeService } from "./like/likeService";
+export type { CreateLikeInput } from "./like/likeService";

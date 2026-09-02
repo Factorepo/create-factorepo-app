@@ -18,6 +18,7 @@ import { getAllPosts } from "../post/getAllPosts";
 import { getPost } from "../post/getPost";
 
 const PostId = z.uuid();
+const CreatePostInput = CreatePostSchema.omit({ createdBy: true });
 
 export const postRoutes = {
   list: (): Promise<GetAllPostsResponse> => getAllPosts(),
@@ -26,15 +27,21 @@ export const postRoutes = {
     getPost({ id: parseInput(PostId, params.id) }),
 
   create: async ({ ctx, req }: RouteContext): Promise<CreatePostResponse> => {
-    requireSession(ctx);
-    return createPost(parseInput(CreatePostSchema, await readJsonBody(req)));
+    const authed = requireSession(ctx);
+    const input = parseInput(CreatePostInput, await readJsonBody(req));
+
+    return createPost({ ...input, userId: authed.session.user.id });
   },
 
   remove: ({
     ctx,
     params,
   }: RouteContext<{ id: string }>): Promise<DeletePostResponse> => {
-    requireSession(ctx);
-    return deletePost({ id: parseInput(PostId, params.id) });
+    const authed = requireSession(ctx);
+
+    return deletePost({
+      id: parseInput(PostId, params.id),
+      userId: authed.session.user.id,
+    });
   },
 };

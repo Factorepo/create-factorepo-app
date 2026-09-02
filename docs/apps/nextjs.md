@@ -24,8 +24,10 @@ rule. [backend.md](backend.md) owns the API routes inside this app.
 
 1. The typed API client of `src/api/client.ts`, in a client component, through a
    TanStack Query hook.
-2. A service of [packages/api](../../packages/api), in a server component,
-   through the request context of `src/api/server.tsx`.
+2. An endpoint function of [packages/api](../../packages/api), called directly
+   in a server component. Build the request context of `src/api/server.tsx`
+   first when the endpoint needs a session, and pass what it needs as an
+   argument.
 3. The auth client, directly from a client component.
 4. A token that `tooling/tailwind/theme.css` defines.
 5. A component of [packages/ui](../../packages/ui), through its subpath.
@@ -63,15 +65,17 @@ rule. [backend.md](backend.md) owns the API routes inside this app.
 
 1. Use an effect only to synchronize with an external system.
 2. Never use one to transform data or to run the logic of an interaction.
-3. Keep the effect in the hooks folder, and never make the code complex to avoid
-   one.
-4. Use `useHydrated` before you read `window`, `localStorage`, `navigator`, or
-   `matchMedia`, and render nothing until it reports hydration.
-5. Subscribe with `useSyncExternalStore` when that value changes afterwards.
-6. Use `useMountEffect` for a single sync on mount, and never invent a new mount
-   flag.
-7. Tag an effect you cannot remove as `// effect:audited — <reason>` on the line
-   above it.
+3. Write the reason above an effect when its dependency array is not empty.
+4. Prefer that reason to a workaround. Never add a wrapper hook, a mount flag, or an indirection to avoid an effect.
+5. Read a changing external value with `useSyncExternalStore`, and give it a server snapshot.
+6. Render a server-safe default for a one-shot client-only read, and replace it in an effect.
+7. Never fetch in an effect. Read the data through a query hook.
+
+> An effect is not the preferred tool, and it is also not forbidden. An empty
+> dependency array runs once and reads as what it is. An array that is not empty
+> claims the effect must run again when exactly these values change, and no
+> compiler checks that claim, so write it down. A wrapper invented to avoid
+> writing one sentence costs a file, a test, and the next reader's afternoon.
 
 ## 7. Styling
 

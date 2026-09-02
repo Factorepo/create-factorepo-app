@@ -1,8 +1,9 @@
 import type { z } from "zod/v4";
 import { and, eq } from "drizzle-orm";
 
+import type { Database } from "../../client";
 import type { CreateLikeSchema } from "./like";
-import { db } from "../../client";
+import { db as defaultClient } from "../../client";
 import { Like } from "./like";
 
 export type NewLike = z.output<typeof CreateLikeSchema>;
@@ -13,7 +14,10 @@ export interface LikeRow {
 }
 
 export const likeRepository = {
-  async insert(values: NewLike): Promise<LikeRow> {
+  async insert(
+    values: NewLike,
+    db: Database = defaultClient,
+  ): Promise<LikeRow> {
     const [created] = await db
       .insert(Like)
       .values(values)
@@ -25,7 +29,11 @@ export const likeRepository = {
     return created;
   },
 
-  async deleteByIdForUser(id: string, userId: string): Promise<string | null> {
+  async deleteByIdForUser(
+    id: string,
+    userId: string,
+    db: Database = defaultClient,
+  ): Promise<string | null> {
     const [deleted] = await db
       .delete(Like)
       .where(and(eq(Like.id, id), eq(Like.userId, userId)))

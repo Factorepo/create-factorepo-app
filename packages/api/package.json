@@ -14,7 +14,8 @@
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "dev": "tsc",
     "format": "oxfmt --check . --ignore-path ../../.gitignore",
-    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+    "test": "vitest run --coverage"
   },
   "dependencies": {
     "@acme/auth": "workspace:*",
@@ -24,7 +25,9 @@
   },
   "devDependencies": {
     "@acme/tsconfig": "workspace:*",
+    "@vitest/coverage-v8": "catalog:",
     "oxfmt": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

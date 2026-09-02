@@ -28,6 +28,8 @@ const post: PostSummary = {
   id: "3f1c9b62-6f0f-4a4a-9f2a-2f0b6d5f1a11",
   title: "The install step fails",
   content: "The pipeline stops before it runs a test.",
+  createdBy: "8c2f0a51-4d3e-4b9c-8a17-5e6d2c9f0b34",
+  updatedBy: null,
   createdAt: "2026-08-19T00:00:00.000Z",
   updatedAt: null,
   likeCount: 3,

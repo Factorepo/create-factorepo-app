@@ -24,8 +24,13 @@ export { createApiContext, requireSession } from "./context";
 export type { ApiErrorBody, ApiErrorCode, FieldErrors } from "./errors";
 export { parseInput } from "./errors";
 
-export type { RouteContext, RouteHandler } from "./handler";
-export { apiRoute, corsPreflight, readJsonBody } from "./handler";
+export type {
+  RouteContext,
+  RouteHandler,
+  WebhookContext,
+  WebhookHandler,
+} from "./handler";
+export { apiRoute, corsPreflight, readJsonBody, webhookRoute } from "./handler";
 
 export { postRoutes } from "./routes/post";
 export { likeRoutes } from "./routes/like";

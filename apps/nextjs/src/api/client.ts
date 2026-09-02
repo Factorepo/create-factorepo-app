@@ -9,7 +9,7 @@ import type {
 
 import { env } from "~/env";
 
-export type NewPost = CreatePostRequest;
+export type NewPost = Omit<CreatePostRequest, "userId">;
 
 export class ApiClientError extends Error {
   readonly code: ApiErrorCode;

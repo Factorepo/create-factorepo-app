@@ -17,13 +17,13 @@
 ## 3. Coding Style
 
 1. Never read the raw environment outside an environment module.
-2. Keep the environment module at the root
+2. Keep the environment module at `src/env.ts`. Move it to the package root and export it as a subpath when another package must read it.
 3. Almost never write a comment.
 4. Keep a comment only when the code cannot hold the reason.
 
 ## 4. The linter
 
-1. Keep the lint rules in `tooling/lint`.
+1. Keep every lint rule in `tooling/lint`. Keep `.oxlintrc.json` at the root, and write only the composition and the ignore patterns in it.
 2. Silence one line with a disable comment, and write the reason on the comment.
 3. Silence a whole file with a file-level disable comment at the top, and write the reason.
 4. Never add a folder-scoped exemption. Put every exception in the file it applies to.
@@ -37,10 +37,12 @@
 ## 6. The quality gate
 
 1. Treat `pnpm check` as the canonical gate, and run it yourself.
-2. Know that it runs lint, `typecheck`, then the nextjs suite.
+2. Know that it runs the format check, lint, `typecheck`, then the nextjs suite.
 3. Never run `pnpm format`; normalize your own files with `pnpm exec oxfmt <paths>`.
 4. Never hide a failure with a widened type or a swallowed catch.
 5. Never loosen the tsconfig or the oxlint config. Name the cause instead.
+6. Expect the commit hook to check the format of the staged files.
+7. Expect the commit hook to decline the commit, and never to change a file.
 
 ## 7. Tests
 
@@ -51,9 +53,10 @@
 
 ## 8. Logging
 
-1. Log in the API package only.
-2. Log in another package only when the user asks, and mark it `// Justification: User request`.
-3. Keep the logger, the log events, and the error at the root of the service package.
+1. Emit a log line from the API package only.
+2. Emit one from another package only when the user asks, and mark it `// Justification: User request`.
+3. Declare the logger, the log events, and the error at the root of the service package.
+4. Delete a log event that no caller emits.
 
 ## 9. Never push
 

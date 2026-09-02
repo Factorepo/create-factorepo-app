@@ -327,12 +327,18 @@ importers:
       '@acme/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 4.1.11(vitest@4.1.11)
       oxfmt:
         specifier: 'catalog:'
         version: 0.65.0
       typescript:
         specifier: 'catalog:'
         version: 7.0.2
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.11(@types/node@22.18.12)(@vitest/coverage-v8@4.1.11)(jsdom@30.0.1(@noble/hashes@2.0.1))(vite@8.2.1(@types/node@22.18.12)(jiti@2.6.1)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
 
   packages/auth:
     dependencies:
@@ -8127,7 +8133,7 @@ snapshots:
     dependencies:
       '@babel/template': 7.27.2
       '@babel/traverse': 7.28.4
-      '@babel/types': 7.28.4
+      '@babel/types': 7.29.8
     transitivePeerDependencies:
       - supports-color
 
@@ -10801,7 +10807,7 @@ snapshots:
   '@react-native/codegen@0.82.1(@babel/core@7.28.4)':
     dependencies:
       '@babel/core': 7.28.4
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.29.8
       glob: 7.2.3
       hermes-parser: 0.32.0
       invariant: 2.2.4

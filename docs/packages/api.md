@@ -26,8 +26,8 @@
 1. Never call another endpoint function.
 2. Never put a business rule here.
 3. Never put a domain logic here.
-4. Never perform a unit of work here.
-5. Never wrap a guard function in a stage.
+4. Never perform a unit of work here, as [service.md](service.md) defines it.
+5. Never wrap a guard function in a stage. A service function that guards inside itself is not a guard call, and it belongs in a stage.
 6. Never nest a stage.
 
 ## 5. The stage helper
@@ -56,3 +56,7 @@
 5. Change an application error to `{ error: { code, message, fieldErrors } }`, and read the status from the error code.
 6. Change an unknown exception to an internal application error, and log the failure with the route, the method, and the status.
 7. Never send credentials over CORS, and never narrow the wildcard origin without an instruction from the user.
+8. Keep `webhookRoute` in `handler.ts`, beside `apiRoute`.
+9. Give `webhookRoute` the raw body and the request, and never a session context.
+10. Verify the signature in the boundary package of that provider, and never here.
+11. Answer 200 on a verified event, and 400 on a rejected signature.

@@ -5,6 +5,8 @@ export interface PostSummary {
   id: string;
   title: string;
   content: string;
+  createdBy: string;
+  updatedBy: string | null;
   createdAt: string;
   updatedAt: string | null;
   likeCount: number;

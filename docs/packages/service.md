@@ -2,6 +2,10 @@
 
 The service package owns the **units of work**.
 
+A unit of work is boundary work that is dependent, transactional, or shared, as
+§ 1.2 to § 1.4 define those three words. One boundary call that is none of the
+three is not a unit of work, and the endpoint makes it directly.
+
 ## 1. Responsibility
 
 1. Write a service function only for logic that is dependent, transactional, or shared.
@@ -23,7 +27,7 @@ The service package owns the **units of work**.
 ## 3. May use
 
 1. A boundary package, for every external system.
-2. A transaction, passing its handle to every repository call inside it.
+2. A transaction object of the database package, called by name.
 
 ## 4. Must not
 
@@ -35,3 +39,4 @@ The service package owns the **units of work**.
 ## 5. Failure modes
 
 1. If it is necessary, throw a business error.
+2. Translate an error of a boundary package into an application error here.

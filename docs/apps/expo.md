@@ -3,8 +3,8 @@
 The mobile app owns the **rendering and the interaction on the device**. It owns
 no business rule.
 
-Obey [apps/nextjs.md](nextjs.md) for the naming, the export, the effect, and the
-test rules. This file holds only what the native app does differently.
+Obey [apps/nextjs.md](nextjs.md) § 2, § 4, § 6, § 7 and § 10. This file holds
+only what the native app does differently.
 
 ## 1. Responsibility
 
@@ -21,6 +21,8 @@ test rules. This file holds only what the native app does differently.
 4. Keep the Expo configuration in `app.config.ts`, and the build profiles in
    `eas.json`.
 5. Keep the style entry point at `src/styles.css`.
+6. Read "page" as "screen" in the layout rules of [nextjs.md](nextjs.md) § 2.
+   Every other word of that section applies to this app unchanged.
 
 ## 3. May use
 
@@ -33,16 +35,13 @@ test rules. This file holds only what the native app does differently.
 ## 4. Must not
 
 1. Never define a component, a hook, a business rule, or a transformation in a
-   screen file.
+   screen file. [nextjs.md](nextjs.md) § 2 says where each one goes.
 2. Never import a value from [packages/api](../../packages/api). Import a type
    only, and keep the package a dev dependency.
 3. Never import [packages/ui](../../packages/ui). It builds for the DOM.
-4. Never hand-type an API response. Import the type of the endpoint from
-   [packages/api](../../packages/api).
-5. Never import a package that reads the environment of the server.
-6. Never put a secret in this app. The bundle ships to the device, and a reader
+4. Never import a package that reads the environment of the server.
+5. Never put a secret in this app. The bundle ships to the device, and a reader
    can open it.
-7. Never write an ad-hoc style value or a raw palette color such as `slate-*`.
 
 > A value import pulls the server code of the API package into the bundle. A
 > type import disappears at build time and leaves nothing behind.

@@ -23,12 +23,17 @@ the handler that this layer binds to.
 3. Mount Better Auth at `src/app/api/auth/[...all]/route.ts`, and keep that
    file to the handler export.
 4. Keep the health route at `src/app/api/health/route.ts`, and return a static
-   200 body. This is the one exemption to § 1.1, because the deployment probes
-   it and it must not touch the context, the database, or the log.
+   200 body. This is one of the two exemptions to § 1.1, because the deployment
+   probes it and it must not touch the context, the database, or the log.
+5. Bind an inbound callback with `webhookRoute`, and never with `apiRoute`. This
+   is the second exemption to § 1.1, because the sender holds no session and the
+   signature is checked against the bytes as they arrived.
+6. Keep every inbound callback under `src/app/api/webhooks/`, one folder per
+   provider.
 
 ## 3. May use
 
-1. `apiRoute`, `corsPreflight`, and a route object of
+1. `apiRoute`, `webhookRoute`, `corsPreflight`, and a route object of
    [packages/api](../../packages/api).
 2. The auth instance of `src/auth/server.ts`.
 

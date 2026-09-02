@@ -3,10 +3,17 @@ import { pgTable } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
+import { user } from "../../auth-schema";
+
 export const Post = pgTable("post", (t) => ({
   id: t.uuid().notNull().primaryKey().defaultRandom(),
   title: t.varchar({ length: 256 }).notNull(),
   content: t.text().notNull(),
+  createdBy: t
+    .uuid()
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  updatedBy: t.uuid().references(() => user.id, { onDelete: "set null" }),
   createdAt: t.timestamp().defaultNow().notNull(),
   updatedAt: t
     .timestamp({ mode: "date", withTimezone: true })
@@ -20,4 +27,5 @@ export const CreatePostSchema = createInsertSchema(Post, {
   id: true,
   createdAt: true,
   updatedAt: true,
+  updatedBy: true,
 });
