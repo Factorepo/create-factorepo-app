@@ -29,14 +29,14 @@ export const likeRepository = {
     return created;
   },
 
-  async deleteByIdForUser(
+  async deleteForUser(
     id: string,
     userId: string,
     db: Database = defaultClient,
   ): Promise<string | null> {
     const [deleted] = await db
       .delete(Like)
-      .where(and(eq(Like.id, id), eq(Like.userId, userId)))
+      .where(and(eq(Like.id, id), eq(Like.createdBy, userId)))
       .returning({ id: Like.id });
 
     return deleted?.id ?? null;

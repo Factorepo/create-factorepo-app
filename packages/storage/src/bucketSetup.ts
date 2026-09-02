@@ -15,8 +15,7 @@ import {
   OBJECT_CORS_ORIGINS,
   OBJECT_RETENTION_DAYS,
   OBJECT_RETENTION_RULE_ID,
-} from "@acme/constants";
-
+} from "./constants/objectStorage";
 import { env } from "./env";
 import { storageClient } from "./storageClient";
 

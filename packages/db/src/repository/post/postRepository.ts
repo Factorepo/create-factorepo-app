@@ -71,7 +71,7 @@ export const postRepository = {
     return created;
   },
 
-  async deleteByIdForUser(
+  async deleteForUser(
     id: string,
     userId: string,
     db: Database = defaultClient,

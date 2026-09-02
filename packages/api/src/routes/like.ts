@@ -10,7 +10,7 @@ import { likePost } from "../like/likePost";
 import { unlikePost } from "../like/unlikePost";
 
 const LikeId = z.uuid();
-const CreateLikeInput = CreateLikeSchema.omit({ userId: true });
+const CreateLikeInput = CreateLikeSchema.omit({ createdBy: true });
 
 export const likeRoutes = {
   create: ({

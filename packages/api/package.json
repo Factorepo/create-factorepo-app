@@ -18,12 +18,12 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@acme/auth": "workspace:*",
     "@acme/db": "workspace:*",
     "@acme/service": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@acme/auth": "workspace:*",
     "@acme/tsconfig": "workspace:*",
     "@vitest/coverage-v8": "catalog:",
     "oxfmt": "catalog:",

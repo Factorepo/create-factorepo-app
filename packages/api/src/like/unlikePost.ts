@@ -16,7 +16,7 @@ export async function unlikePost(
   input: UnlikePostRequest,
 ): Promise<UnlikePostResponse> {
   const deletedId = await stage("like.delete", likeLog.deleted, () =>
-    likeRepository.deleteByIdForUser(input.likeId, input.userId),
+    likeRepository.deleteForUser(input.likeId, input.userId),
   );
 
   return { id: likeGuards.deleted(deletedId, input.likeId) };

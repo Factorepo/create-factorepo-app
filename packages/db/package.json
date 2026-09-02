@@ -28,6 +28,7 @@
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
+    "@acme/constants": "workspace:*",
     "better-auth": "catalog:",
     "drizzle-orm": "^0.44.6",
     "drizzle-seed": "^0.3.1",

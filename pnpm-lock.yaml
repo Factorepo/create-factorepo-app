@@ -117,6 +117,9 @@ importers:
 
   apps/expo:
     dependencies:
+      '@acme/constants':
+        specifier: workspace:*
+        version: link:../../packages/constants
       '@better-auth/expo':
         specifier: 'catalog:'
         version: 1.4.0-beta.9(better-auth@1.4.0-beta.9(better-sqlite3@12.4.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(expo-constants@18.0.10)(expo-crypto@15.0.7(expo@54.0.19))(expo-linking@8.0.8)(expo-secure-store@15.0.7(expo@54.0.19))(expo-web-browser@15.0.8(expo@54.0.19)(react-native@0.81.5(@babel/core@7.28.4)(@types/react@19.2.2)(react@19.1.1)))
@@ -232,9 +235,6 @@ importers:
       '@acme/constants':
         specifier: workspace:*
         version: link:../../packages/constants
-      '@acme/db':
-        specifier: workspace:*
-        version: link:../../packages/db
       '@acme/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -320,9 +320,6 @@ importers:
 
   packages/api:
     dependencies:
-      '@acme/auth':
-        specifier: workspace:*
-        version: link:../auth
       '@acme/db':
         specifier: workspace:*
         version: link:../db
@@ -333,6 +330,9 @@ importers:
         specifier: 'catalog:'
         version: 4.1.12
     devDependencies:
+      '@acme/auth':
+        specifier: workspace:*
+        version: link:../auth
       '@acme/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/typescript
@@ -406,6 +406,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@acme/constants':
+        specifier: workspace:*
+        version: link:../constants
       better-auth:
         specifier: 'catalog:'
         version: 1.4.0-beta.9(better-sqlite3@12.4.1)(next@16.0.0(@babel/core@7.28.4)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -525,9 +528,6 @@ importers:
 
   packages/storage:
     dependencies:
-      '@acme/constants':
-        specifier: workspace:*
-        version: link:../constants
       '@aws-sdk/client-s3':
         specifier: ^3.1063.0
         version: 3.1114.0

@@ -2,6 +2,13 @@ import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import {
+  POST_CONTENT_PLACEHOLDER,
+  POST_CREATE_SUBMIT,
+  POST_CREATE_UNAUTHORIZED,
+  POST_TITLE_PLACEHOLDER,
+} from "@acme/constants";
+
 import { api, ApiClientError, postKeys } from "~/utils/api";
 
 export function CreatePostForm() {
@@ -28,7 +35,7 @@ export function CreatePostForm() {
         className="border-input bg-background text-foreground items-center rounded-md border px-3 text-lg leading-tight"
         value={title}
         onChangeText={setTitle}
-        placeholder="Title"
+        placeholder={POST_TITLE_PLACEHOLDER}
       />
       {fieldErrors?.title && (
         <Text className="text-destructive mb-2">{fieldErrors.title}</Text>
@@ -37,7 +44,7 @@ export function CreatePostForm() {
         className="border-input bg-background text-foreground items-center rounded-md border px-3 text-lg leading-tight"
         value={content}
         onChangeText={setContent}
-        placeholder="Content"
+        placeholder={POST_CONTENT_PLACEHOLDER}
       />
       {fieldErrors?.content && (
         <Text className="text-destructive mb-2">{fieldErrors.content}</Text>
@@ -47,11 +54,11 @@ export function CreatePostForm() {
         disabled={isPending}
         onPress={() => mutate({ title, content })}
       >
-        <Text className="text-foreground">Create</Text>
+        <Text className="text-foreground">{POST_CREATE_SUBMIT}</Text>
       </Pressable>
       {apiError?.code === "UNAUTHORIZED" && (
         <Text className="text-destructive mt-2">
-          You need to be logged in to create a post
+          {POST_CREATE_UNAUTHORIZED}
         </Text>
       )}
     </View>

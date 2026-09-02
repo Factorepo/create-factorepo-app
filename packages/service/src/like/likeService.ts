@@ -16,6 +16,9 @@ export const likeService = {
     const post = await postRepository.findSummaryById(input.postId);
     postGuards.found(post, input.postId);
 
-    return await likeRepository.insert(input);
+    return await likeRepository.insert({
+      postId: input.postId,
+      createdBy: input.userId,
+    });
   },
 };

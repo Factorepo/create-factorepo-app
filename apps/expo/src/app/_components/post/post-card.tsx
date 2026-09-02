@@ -1,6 +1,8 @@
 import { Pressable, Text, View } from "react-native";
 import { Link } from "expo-router";
 
+import { POST_DELETE_SUBMIT } from "@acme/constants";
+
 import type { PostSummary } from "~/utils/api";
 
 export function PostCard(props: { post: PostSummary; onDelete: () => void }) {
@@ -23,7 +25,9 @@ export function PostCard(props: { post: PostSummary; onDelete: () => void }) {
         </Link>
       </View>
       <Pressable onPress={props.onDelete}>
-        <Text className="text-primary font-bold uppercase">Delete</Text>
+        <Text className="text-primary font-bold uppercase">
+          {POST_DELETE_SUBMIT}
+        </Text>
       </Pressable>
     </View>
   );

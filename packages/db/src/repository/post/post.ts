@@ -3,11 +3,16 @@ import { pgTable } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
+import {
+  POST_CONTENT_MAX_LENGTH,
+  POST_TITLE_MAX_LENGTH,
+} from "@acme/constants";
+
 import { user } from "../../auth-schema";
 
 export const Post = pgTable("post", (t) => ({
   id: t.uuid().notNull().primaryKey().defaultRandom(),
-  title: t.varchar({ length: 256 }).notNull(),
+  title: t.varchar({ length: POST_TITLE_MAX_LENGTH }).notNull(),
   content: t.text().notNull(),
   createdBy: t
     .uuid()
@@ -21,8 +26,8 @@ export const Post = pgTable("post", (t) => ({
 }));
 
 export const CreatePostSchema = createInsertSchema(Post, {
-  title: z.string().max(256),
-  content: z.string().max(256),
+  title: z.string().max(POST_TITLE_MAX_LENGTH),
+  content: z.string().max(POST_CONTENT_MAX_LENGTH),
 }).omit({
   id: true,
   createdAt: true,

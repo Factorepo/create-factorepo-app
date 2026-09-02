@@ -1,7 +1,9 @@
 import { S3Client } from "@aws-sdk/client-s3";
 
-import { DEFAULT_OBJECT_BUCKET, DEFAULT_OBJECT_REGION } from "@acme/constants";
-
+import {
+  DEFAULT_OBJECT_BUCKET,
+  DEFAULT_OBJECT_REGION,
+} from "./constants/objectStorage";
 import { env } from "./env";
 
 function build(storageUrl: string): S3Client {

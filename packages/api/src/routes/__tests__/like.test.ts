@@ -9,12 +9,12 @@ const posts = vi.hoisted(() => ({
   findAllSummaries: vi.fn(),
   findSummaryById: vi.fn(),
   insert: vi.fn(),
-  deleteByIdForUser: vi.fn(),
+  deleteForUser: vi.fn(),
 }));
 
 const likes = vi.hoisted(() => ({
   insert: vi.fn(),
-  deleteByIdForUser: vi.fn(),
+  deleteForUser: vi.fn(),
 }));
 
 vi.mock("@acme/db/repository", () => ({
@@ -88,14 +88,14 @@ describe("likeRoutes.create", () => {
 
     expect(likes.insert).toHaveBeenCalledWith({
       postId: POST_ID,
-      userId: USER,
+      createdBy: USER,
     });
   });
 });
 
 describe("likeRoutes.remove", () => {
   it("scopes the delete to the caller", async () => {
-    likes.deleteByIdForUser.mockResolvedValue(LIKE_ID);
+    likes.deleteForUser.mockResolvedValue(LIKE_ID);
 
     await likeRoutes.remove({
       ctx: signedIn(USER),
@@ -103,11 +103,11 @@ describe("likeRoutes.remove", () => {
       params: { id: LIKE_ID },
     });
 
-    expect(likes.deleteByIdForUser).toHaveBeenCalledWith(LIKE_ID, USER);
+    expect(likes.deleteForUser).toHaveBeenCalledWith(LIKE_ID, USER);
   });
 
   it("answers not found for a like the caller does not own", async () => {
-    likes.deleteByIdForUser.mockResolvedValue(null);
+    likes.deleteForUser.mockResolvedValue(null);
 
     await expect(
       codeOf(() =>

@@ -9,12 +9,12 @@ const repo = vi.hoisted(() => ({
   findAllSummaries: vi.fn(),
   findSummaryById: vi.fn(),
   insert: vi.fn(),
-  deleteByIdForUser: vi.fn(),
+  deleteForUser: vi.fn(),
 }));
 
 vi.mock("@acme/db/repository", () => ({
   postRepository: repo,
-  likeRepository: { insert: vi.fn(), deleteByIdForUser: vi.fn() },
+  likeRepository: { insert: vi.fn(), deleteForUser: vi.fn() },
 }));
 
 const AUTHOR = "8c2f0a51-4d3e-4b9c-8a17-5e6d2c9f0b34";
@@ -164,7 +164,7 @@ describe("the stage boundary", () => {
 
 describe("postRoutes.remove", () => {
   it("scopes the delete to the caller", async () => {
-    repo.deleteByIdForUser.mockResolvedValue(POST_ID);
+    repo.deleteForUser.mockResolvedValue(POST_ID);
 
     await postRoutes.remove({
       ctx: signedIn(AUTHOR),
@@ -172,11 +172,11 @@ describe("postRoutes.remove", () => {
       params: { id: POST_ID },
     });
 
-    expect(repo.deleteByIdForUser).toHaveBeenCalledWith(POST_ID, AUTHOR);
+    expect(repo.deleteForUser).toHaveBeenCalledWith(POST_ID, AUTHOR);
   });
 
   it("answers not found, never forbidden, for a post the caller does not own", async () => {
-    repo.deleteByIdForUser.mockResolvedValue(null);
+    repo.deleteForUser.mockResolvedValue(null);
 
     await expect(
       codeOf(() =>

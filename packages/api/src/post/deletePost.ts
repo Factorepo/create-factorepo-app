@@ -16,7 +16,7 @@ export async function deletePost(
   input: DeletePostRequest,
 ): Promise<DeletePostResponse> {
   const deletedId = await stage("post.delete", postLog.deleted, () =>
-    postRepository.deleteByIdForUser(input.id, input.userId),
+    postRepository.deleteForUser(input.id, input.userId),
   );
 
   return { id: postGuards.deleted(deletedId, input.id) };
