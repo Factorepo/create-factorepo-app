@@ -2,6 +2,8 @@
 
 The UI package owns the **presentation primitives**.
 
+Read [ui-components.md](ui-components.md) for the catalog of the shadcn registry, and for the components that this workspace holds.
+
 ## 1. Responsibility
 
 1. Keep only a presentation component here.
