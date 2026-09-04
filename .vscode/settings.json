@@ -6,5 +6,15 @@
   "editor.formatOnSaveMode": "file",
   "[typescript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "files.exclude": {
+    "**/.github": true,
+    "**/.husky": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.next": true,
+    "**/.cache": true,
+    "**/.turbo": true,
+    "**/next-env.d.ts": true
   }
 }
